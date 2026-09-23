@@ -213,7 +213,18 @@
   .field input:focus{outline:2px solid var(--primary);outline-offset:1px;}
   .chip-check{display:inline-flex;align-items:center;gap:6px;padding:8px 13px;border-radius:99px;
     border:1px solid var(--glass-border);background:var(--glass-strong);font-size:13px;cursor:pointer;}
-  .chip-check input{margin:0;accent-color:var(--primary);}
+  .chip-check input[type="checkbox"]{
+    appearance:none;-webkit-appearance:none;margin:0;flex:0 0 18px;
+    width:18px;height:18px;border-radius:6px;position:relative;cursor:pointer;
+    border:1.5px solid var(--glass-border);background:var(--glass-strong);
+  }
+  .chip-check input[type="checkbox"]:checked{
+    background:linear-gradient(135deg,var(--primary),var(--primary-2));border-color:transparent;
+  }
+  .chip-check input[type="checkbox"]:checked::after{
+    content:"";position:absolute;left:5px;top:1px;width:5px;height:9px;
+    border:solid var(--primary-ink);border-width:0 2px 2px 0;transform:rotate(45deg);
+  }
   .emoji-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
   .emoji-input{width:64px;height:64px;border-radius:50%;text-align:center;font-size:28px;
     border:1px solid var(--glass-border);background:var(--glass-strong);cursor:pointer;flex:0 0 64px;
@@ -523,6 +534,13 @@
   // ---------- state ----------
   var state = {people:{}, relapses:[], cheers:[]};
   var spaceId = (location.hash || "").replace(/^#/, "").trim();
+  var restoredLastSpace = false;
+  if(!spaceId){
+    try{
+      var lastSpace = localStorage.getItem("aerCuratLastSpace");
+      if(lastSpace){ spaceId = lastSpace; location.hash = lastSpace; restoredLastSpace = true; }
+    }catch(e){}
+  }
   var myId = null;
   try { myId = spaceId ? localStorage.getItem("aerCuratMyId_" + spaceId) : null; } catch(e){}
   var pendingEmoji = EMOJIS_DEFAULT;
@@ -633,6 +651,7 @@
 
   function connectToSpace(id){
     if(!configured || !db) return;
+    try{ localStorage.setItem("aerCuratLastSpace", id); }catch(e){}
     if(unsubscribeState){ unsubscribeState(); unsubscribeState = null; }
     state = {people:{}, relapses:[], cheers:[]};
     stateRef = doc(db, "spaces", id);
@@ -1141,6 +1160,12 @@
   }
 
   render();
+  if(restoredLastSpace){
+    showSaving(true);
+    var el = document.getElementById("saving-note");
+    if(el) el.textContent = lang === "en" ? "↩ back to your space" : "↩ te-ai reconectat la spațiul tău";
+    setTimeout(function(){ showSaving(false); }, 2200);
+  }
   setInterval(function(){ if(myId) render(); }, 60000);
 </script>
 </body>
