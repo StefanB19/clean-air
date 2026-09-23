@@ -10,7 +10,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Aer Curat">
-<meta name="theme-color" content="#2F7A63">
+<meta name="theme-color" content="#12A583">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
@@ -18,37 +18,54 @@
     color-scheme: light;
     padding-top: env(safe-area-inset-top,0px);
     padding-bottom: env(safe-area-inset-bottom,0px);
-    --bg:#FBF7F1; --surface:#FFFFFF; --surface-2:#F3ECE1;
-    --ink:#1F2A24; --ink-soft:#5B6B62;
-    --primary:#2F7A63; --primary-ink:#EAF7F1;
-    --accent:#FF7A59; --accent-soft:#FFE3D6; --accent-ink:#3D1F14;
-    --line:#E4DCD0;
-    --shadow: 0 1px 2px rgba(31,42,36,.06), 0 8px 24px -12px rgba(31,42,36,.18);
+    --bg-a:#EAFBF4; --bg-b:#E7F0FD; --bg-c:#F6EEFF;
+    --blob1:#7FE7C4; --blob2:#9DBBFF; --blob3:#FFC1A6; --blob-op:.5;
+    --ink:#15211C; --ink-soft:#4C5C56;
+    --primary:#0FA588; --primary-2:#33E7C4; --primary-ink:#04211B;
+    --accent:#FF6B7A; --accent-2:#FF9776; --accent-soft:rgba(255,107,122,.16); --accent-ink:#5A0E17;
+    --glass:rgba(255,255,255,.55); --glass-strong:rgba(255,255,255,.72); --glass-border:rgba(255,255,255,.75);
+    --line:rgba(21,33,28,.09);
+    --shadow: 0 10px 40px -14px rgba(20,40,35,.28);
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
       color-scheme: dark;
-      --bg:#121815; --surface:#1A211D; --surface-2:#20281F;
-      --ink:#EDEAE3; --ink-soft:#9CA79E;
-      --primary:#5FCF9F; --primary-ink:#0E1E17;
-      --accent:#FF8F73; --accent-soft:#3A241D; --accent-ink:#FFE1D3;
-      --line:#2A322C;
-      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 28px -14px rgba(0,0,0,.6);
+      --bg-a:#0B1220; --bg-b:#10142A; --bg-c:#170F26;
+      --blob1:#1FBF9E; --blob2:#5B7CFA; --blob3:#FF8F6B; --blob-op:.35;
+      --ink:#F1F5F3; --ink-soft:#A9B4AF;
+      --primary:#2FE7C0; --primary-2:#7CFFE0; --primary-ink:#04211B;
+      --accent:#FF8FA0; --accent-2:#FFB199; --accent-soft:rgba(255,143,160,.18); --accent-ink:#FFE3E8;
+      --glass:rgba(255,255,255,.07); --glass-strong:rgba(255,255,255,.11); --glass-border:rgba(255,255,255,.16);
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 10px 44px -14px rgba(0,0,0,.65);
     }
   }
   :root[data-theme="dark"]{
     color-scheme: dark;
-    --bg:#121815; --surface:#1A211D; --surface-2:#20281F;
-    --ink:#EDEAE3; --ink-soft:#9CA79E;
-    --primary:#5FCF9F; --primary-ink:#0E1E17;
-    --accent:#FF8F73; --accent-soft:#3A241D; --accent-ink:#FFE1D3;
-    --line:#2A322C;
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 28px -14px rgba(0,0,0,.6);
+    --bg-a:#0B1220; --bg-b:#10142A; --bg-c:#170F26;
+    --blob1:#1FBF9E; --blob2:#5B7CFA; --blob3:#FF8F6B; --blob-op:.35;
+    --ink:#F1F5F3; --ink-soft:#A9B4AF;
+    --primary:#2FE7C0; --primary-2:#7CFFE0; --primary-ink:#04211B;
+    --accent:#FF8FA0; --accent-2:#FFB199; --accent-soft:rgba(255,143,160,.18); --accent-ink:#FFE3E8;
+    --glass:rgba(255,255,255,.07); --glass-strong:rgba(255,255,255,.11); --glass-border:rgba(255,255,255,.16);
+    --line:rgba(255,255,255,.12);
+    --shadow: 0 10px 44px -14px rgba(0,0,0,.65);
+  }
+  :root[data-theme="light"]{
+    color-scheme: light;
+    --bg-a:#EAFBF4; --bg-b:#E7F0FD; --bg-c:#F6EEFF;
+    --blob1:#7FE7C4; --blob2:#9DBBFF; --blob3:#FFC1A6; --blob-op:.5;
+    --ink:#15211C; --ink-soft:#4C5C56;
+    --primary:#0FA588; --primary-2:#33E7C4; --primary-ink:#04211B;
+    --accent:#FF6B7A; --accent-2:#FF9776; --accent-soft:rgba(255,107,122,.16); --accent-ink:#5A0E17;
+    --glass:rgba(255,255,255,.55); --glass-strong:rgba(255,255,255,.72); --glass-border:rgba(255,255,255,.75);
+    --line:rgba(21,33,28,.09);
+    --shadow: 0 10px 40px -14px rgba(20,40,35,.28);
   }
 
   *{box-sizing:border-box}
   html,body{margin:0;height:100%}
-  body{background:var(--bg);color:var(--ink);
+  body{background:linear-gradient(160deg,var(--bg-a),var(--bg-b) 55%,var(--bg-c));color:var(--ink);
     font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     -webkit-font-smoothing:antialiased;}
   img{max-width:100%}
@@ -57,123 +74,152 @@
   .num{font-family:"Fraunces",Georgia,serif;font-variant-numeric:tabular-nums;}
   button{font-family:inherit}
 
+  .bg-mesh{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none;}
+  .blob{position:absolute;border-radius:50%;filter:blur(64px);opacity:var(--blob-op);}
+  .blob.b1{width:60vmax;height:60vmax;top:-22%;left:-18%;background:var(--blob1);animation:float1 24s ease-in-out infinite;}
+  .blob.b2{width:52vmax;height:52vmax;bottom:-22%;right:-14%;background:var(--blob2);animation:float2 28s ease-in-out infinite;}
+  .blob.b3{width:42vmax;height:42vmax;top:28%;right:12%;background:var(--blob3);animation:float3 32s ease-in-out infinite;}
+  @keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(5%,7%) scale(1.06)}}
+  @keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-6%,-5%) scale(1.05)}}
+  @keyframes float3{0%,100%{transform:translate(0,0)}50%{transform:translate(-4%,6%) scale(1.08)}}
+  @media (prefers-reduced-motion: reduce){ .blob{animation:none!important;} }
+
+  #app{position:relative;z-index:1;}
   .wrap{max-width:720px;margin:0 auto;padding:0 16px 48px;}
 
   header.top{
     position:sticky; top:env(safe-area-inset-top,0px); z-index:5;
-    background:color-mix(in srgb, var(--bg) 88%, transparent);
-    backdrop-filter: blur(8px);
-    border-bottom:1px solid var(--line);
+    background:var(--glass);
+    backdrop-filter: blur(22px) saturate(180%);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    border-bottom:1px solid var(--glass-border);
   }
-  .top-inner{max-width:720px;margin:0 auto;padding:14px 16px;
-    display:flex;align-items:center;justify-content:space-between;gap:12px;}
-  .brand{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;letter-spacing:.2px}
-  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--primary)}
-  .whoami{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-soft)}
-  .whoami button{background:none;border:none;color:var(--primary);font-size:13px;font-weight:700;cursor:pointer;padding:4px 0}
+  .top-inner{max-width:720px;margin:0 auto;padding:12px 16px;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+  .brand{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;letter-spacing:.2px}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--primary);box-shadow:0 0 10px 1px var(--primary);}
+  .toolbar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .pill-btn{background:var(--glass-strong);border:1px solid var(--glass-border);color:var(--ink);
+    font-size:12px;font-weight:700;padding:6px 11px;border-radius:99px;cursor:pointer;
+    display:inline-flex;align-items:center;gap:5px;}
+  .pill-btn:active{transform:scale(.96);}
+  .whoami{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-soft);flex-wrap:wrap;}
 
-  .status-banner{padding:10px 16px;font-size:13px;text-align:center;}
+  .status-banner{padding:10px 16px;font-size:13px;text-align:center;position:relative;z-index:1;}
   .status-banner.warn{background:var(--accent-soft);color:var(--accent-ink);}
-  .status-banner.info{background:var(--surface-2);color:var(--ink-soft);}
 
-  section{margin-top:28px}
+  section{margin-top:26px}
   .eyebrow{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
     color:var(--ink-soft);margin:0 0 10px}
 
+  .glass{background:var(--glass);border:1px solid var(--glass-border);border-radius:22px;
+    box-shadow:var(--shadow);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);}
+
   .duo{display:flex;gap:12px;flex-wrap:wrap}
-  .streak-card{flex:1 1 220px;background:var(--surface);border:1px solid var(--line);
-    border-radius:20px;padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
-  .streak-card.me{border-color:color-mix(in srgb, var(--primary) 45%, var(--line));}
+  .streak-card{flex:1 1 220px;padding:20px;position:relative;overflow:hidden;}
+  .streak-card.me{border-color:color-mix(in srgb, var(--primary) 55%, var(--glass-border));box-shadow:0 0 0 1px color-mix(in srgb, var(--primary) 35%, transparent), var(--shadow);}
   .streak-card .who{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px}
-  .streak-card .emoji{font-size:20px;line-height:1}
+  .streak-card .emoji{font-size:22px;line-height:1}
   .streak-card .badge-me{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
-    color:var(--primary);background:color-mix(in srgb, var(--primary) 14%, transparent);
-    padding:2px 7px;border-radius:99px}
-  .streak-card .streaknum{font-size:44px;line-height:1;margin-top:14px;color:var(--ink)}
-  .streak-card .streaknum small{font-size:16px;font-weight:400;color:var(--ink-soft);margin-left:6px}
+    color:var(--primary-ink);background:linear-gradient(135deg,var(--primary),var(--primary-2));
+    padding:3px 8px;border-radius:99px}
+  .streak-card .streaknum{font-size:46px;line-height:1;margin-top:14px;
+    background:linear-gradient(135deg,var(--ink),var(--ink) 40%,var(--primary));
+    -webkit-background-clip:text;background-clip:text;color:transparent;}
+  .streak-card .streaknum small{font-size:16px;font-weight:500;color:var(--ink-soft);margin-left:6px;-webkit-text-fill-color:var(--ink-soft);}
   .streak-card .since{font-size:12px;color:var(--ink-soft);margin-top:6px}
   .streak-card .best{font-size:12px;color:var(--ink-soft);margin-top:10px;display:flex;gap:5px;align-items:center}
 
   .combo{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
-  .combo .tile{flex:1 1 160px;background:var(--surface-2);border-radius:16px;padding:14px 16px}
+  .combo .tile{flex:1 1 160px;padding:14px 16px;}
   .combo .tile .v{font-size:24px}
   .combo .tile .l{font-size:12px;color:var(--ink-soft);margin-top:2px}
 
   .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
-  .stat-tile{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;}
-  .stat-tile .v{font-size:26px}
+  .stat-tile{padding:16px;}
+  .stat-tile .v{font-size:26px;background:linear-gradient(135deg,var(--ink),var(--primary));-webkit-background-clip:text;background-clip:text;color:transparent;}
   .stat-tile .l{font-size:12px;color:var(--ink-soft);margin-top:4px}
 
-  .milestones{display:flex;flex-direction:column;gap:0;border:1px solid var(--line);
-    border-radius:16px;overflow:hidden;background:var(--surface)}
+  .milestones{display:flex;flex-direction:column;gap:0;overflow:hidden;}
   .m-row{display:flex;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line);align-items:flex-start}
   .m-row:last-child{border-bottom:none}
-  .m-row.done{background:color-mix(in srgb, var(--primary) 6%, transparent)}
+  .m-row.done{background:linear-gradient(90deg, color-mix(in srgb, var(--primary) 10%, transparent), transparent 60%)}
   .m-mark{width:26px;height:26px;border-radius:50%;flex:0 0 26px;display:flex;align-items:center;
     justify-content:center;font-size:13px;margin-top:1px;
-    background:var(--surface-2);color:var(--ink-soft);border:1px solid var(--line)}
-  .m-row.done .m-mark{background:var(--primary);color:var(--primary-ink);border-color:transparent}
+    background:var(--glass-strong);color:var(--ink-soft);border:1px solid var(--glass-border)}
+  .m-row.done .m-mark{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:var(--primary-ink);border-color:transparent}
   .m-label{font-weight:700;font-size:14px}
   .m-fact{font-size:12.5px;color:var(--ink-soft);margin-top:2px}
   .m-eta{font-size:11px;color:var(--ink-soft);margin-top:3px;font-weight:600}
 
   .cheers{display:flex;flex-direction:column;gap:10px}
   .cheer-presets{display:flex;flex-wrap:wrap;gap:8px}
-  .cheer-btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);
+  .cheer-btn{border:1px solid var(--glass-border);background:var(--glass-strong);color:var(--ink);
     padding:9px 12px;border-radius:99px;font-size:13px;cursor:pointer}
-  .cheer-btn:hover{border-color:var(--primary)}
+  .cheer-btn:active{transform:scale(.97);}
   .cheer-feed{display:flex;flex-direction:column;gap:8px;margin-top:4px}
-  .cheer-item{display:flex;gap:9px;font-size:13px;background:var(--surface);border:1px solid var(--line);
-    border-radius:12px;padding:9px 12px;align-items:center}
+  .cheer-item{display:flex;gap:9px;font-size:13px;padding:10px 12px;align-items:center}
   .cheer-item .who{font-weight:700}
   .cheer-item .when{margin-left:auto;color:var(--ink-soft);font-size:11px;white-space:nowrap}
   .empty-note{font-size:13px;color:var(--ink-soft);padding:10px 2px}
 
-  .danger-zone{margin-top:36px;border-top:1px dashed var(--line);padding-top:16px}
+  .danger-zone{margin-top:30px;border-top:1px dashed var(--line);padding-top:16px}
   .relapse-link{background:none;border:none;color:var(--ink-soft);font-size:12px;text-decoration:underline;
     cursor:pointer;padding:4px 0}
-  .confirm-box{margin-top:10px;background:var(--surface);border:1px solid var(--line);border-radius:14px;
-    padding:14px;display:flex;flex-direction:column;gap:10px}
+  .confirm-box{margin-top:10px;padding:14px;display:flex;flex-direction:column;gap:10px}
   .confirm-box p{font-size:13px;margin:0;color:var(--ink-soft)}
-  .row{display:flex;gap:8px}
-  .btn{border:none;border-radius:99px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer}
-  .btn.primary{background:var(--primary);color:var(--primary-ink)}
-  .btn.ghost{background:var(--surface-2);color:var(--ink)}
-  .btn.warn{background:var(--accent);color:#fff}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{border:none;border-radius:99px;padding:11px 18px;font-size:13.5px;font-weight:700;cursor:pointer;}
+  .btn.primary{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:var(--primary-ink);
+    box-shadow:0 8px 24px -8px color-mix(in srgb, var(--primary) 60%, transparent);}
+  .btn.primary:active{transform:scale(.98);}
+  .btn.ghost{background:var(--glass-strong);color:var(--ink);border:1px solid var(--glass-border);}
+  .btn.warn{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;}
 
-  .onboard{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px;
-    box-shadow:var(--shadow)}
+  .onboard{padding:24px;}
   .onboard h2{font-size:22px;margin-bottom:6px}
   .onboard p.sub{color:var(--ink-soft);font-size:13.5px;margin:0 0 18px}
   .claim-list{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
-  .claim-card{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:14px;
-    padding:12px 14px;cursor:pointer;background:var(--surface-2);text-align:left;width:100%}
+  .claim-card{display:flex;align-items:center;gap:10px;border:1px solid var(--glass-border);border-radius:16px;
+    padding:12px 14px;cursor:pointer;background:var(--glass-strong);text-align:left;width:100%}
+  .claim-card:active{transform:scale(.99);}
   .claim-card .emoji{font-size:20px}
   .claim-card .meta{font-size:12px;color:var(--ink-soft);display:block}
   .claim-card strong{display:block;font-size:14px}
   .divider-or{display:flex;align-items:center;gap:10px;color:var(--ink-soft);font-size:11px;
-    text-transform:uppercase;letter-spacing:.08em;margin:14px 0}
+    text-transform:uppercase;letter-spacing:.08em;margin:16px 0}
   .divider-or::before,.divider-or::after{content:"";flex:1;height:1px;background:var(--line)}
-  form.setup{display:flex;flex-direction:column;gap:12px}
-  .field label{display:block;font-size:12px;font-weight:700;color:var(--ink-soft);margin-bottom:5px}
-  .field input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);
-    background:var(--bg);color:var(--ink);font-size:14px;font-family:inherit}
-  .emoji-pick{display:flex;gap:6px;flex-wrap:wrap}
-  .emoji-pick button{font-size:20px;padding:6px 9px;border-radius:10px;border:1px solid var(--line);
-    background:var(--bg);cursor:pointer}
-  .emoji-pick button.sel{border-color:var(--primary);background:color-mix(in srgb, var(--primary) 14%, transparent)}
+  form.setup{display:flex;flex-direction:column;gap:14px}
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--ink-soft);margin-bottom:6px}
+  .field .hint{font-size:11.5px;color:var(--primary);margin-top:5px;font-weight:600}
+  .field input{width:100%;padding:11px 13px;border-radius:12px;border:1px solid var(--glass-border);
+    background:var(--glass-strong);color:var(--ink);font-size:15px;font-family:inherit}
+  .field input:focus{outline:2px solid var(--primary);outline-offset:1px;}
+  .emoji-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .emoji-input{width:64px;height:64px;border-radius:50%;text-align:center;font-size:28px;
+    border:1px solid var(--glass-border);background:var(--glass-strong);cursor:pointer;flex:0 0 64px;
+    display:flex;align-items:center;justify-content:center;padding:0;}
+  .emoji-hint{font-size:12.5px;color:var(--ink-soft);flex:1 1 180px;min-width:0;}
+  .quit-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  .quit-row input{flex:1 1 200px;}
   .two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .saving-note{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);
-    background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:99px;font-size:12px;
-    box-shadow:var(--shadow); z-index:20;}
+    background:var(--glass-strong);color:var(--ink);border:1px solid var(--glass-border);
+    padding:9px 18px;border-radius:99px;font-size:12px;
+    box-shadow:var(--shadow); z-index:20;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
   footer.credit{text-align:center;font-size:11px;color:var(--ink-soft);margin-top:30px}
-  .setup-config{max-width:640px;margin:60px auto;padding:24px;background:var(--surface);
-    border:1px solid var(--line);border-radius:16px;font-size:14px;line-height:1.6}
-  .setup-config code{background:var(--surface-2);padding:2px 6px;border-radius:6px;font-size:13px}
-  .setup-config pre{background:var(--surface-2);padding:14px;border-radius:10px;overflow-x:auto;font-size:12.5px}
+  .setup-config{max-width:640px;margin:60px auto;padding:24px;font-size:14px;line-height:1.6}
+  .setup-config code{background:var(--glass-strong);padding:2px 6px;border-radius:6px;font-size:13px}
+  .setup-config pre{background:var(--glass-strong);padding:14px;border-radius:10px;overflow-x:auto;font-size:12.5px}
 </style>
 </head>
 <body>
+
+<div class="bg-mesh" aria-hidden="true">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+  <span class="blob b3"></span>
+</div>
 
 <div id="app"><div class="wrap" style="padding-top:60px;color:var(--ink-soft);font-size:13px;">Se încarcă…</div></div>
 
@@ -183,43 +229,207 @@
     getFirestore, doc, onSnapshot, setDoc
   } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-  // ---- Fill this in with your own Firebase project config (Project settings > General > Your apps). ----
   const firebaseConfig = {
-  apiKey: "AIzaSyDWg_1X45-Lz4IKT_C1n1A7mxOYOaoMtF0",
-  authDomain: "clean-air-e0d70.firebaseapp.com",
-  projectId: "clean-air-e0d70",
-  storageBucket: "clean-air-e0d70.firebasestorage.app",
-  messagingSenderId: "655168949999",
-  appId: "1:655168949999:web:4c3724d58877a48a8f151a"
-};
+    apiKey: "AIzaSyDWg_1X45-Lz4IKT_C1n1A7mxOYOaoMtF0",
+    authDomain: "clean-air-e0d70.firebaseapp.com",
+    projectId: "clean-air-e0d70",
+    storageBucket: "clean-air-e0d70.firebasestorage.app",
+    messagingSenderId: "655168949999",
+    appId: "1:655168949999:web:4c3724d58877a48a8f151a"
+  };
 
-  var EMOJIS = ["🌿","🔥","💪","☀️","🌊","🍃","🦋","⭐"];
-  var PRESET_CHEERS = [
-    {e:"💪", t:"Esti pe val, nu renunta!"},
-    {e:"🌿", t:"Mandru/a de tine azi."},
-    {e:"🔥", t:"Hai ca poti, inca o zi!"},
+  var PACK_SIZE = 20;
+
+  // ---------- i18n ----------
+  var STRINGS = {
+    ro: {
+      appName: "Aer Curat",
+      invite: "invită", invited: "copiat!",
+      switchPerson: "schimbă",
+      gateTitle: "Un spațiu nou sau unul existent?",
+      gateSub: "Un “spațiu” e caietul vostru comun. Poți sta singur/ă în el, sau îl poți împărți cu partenerul/prietenii tăi — le dai linkul și intră direct în același spațiu.",
+      gateCreate: "Creează un spațiu nou",
+      gateOr: "sau",
+      gateCodeLabel: "Cod de spațiu (din linkul primit)",
+      gateCodePh: "ex: k3j9dq2a",
+      gateJoin: "Intră în spațiu",
+      whoTitle: "Cine ești?",
+      whoSub: "Alege-te din listă, sau adaugă-te dacă ești primul.",
+      since: "fără fum din",
+      orDivider: "sau",
+      nameLabel: "Numele tău",
+      namePh: "ex: Ana",
+      emojiLabel: "Semnul tău",
+      emojiHint: "Apasă cercul și alege un emoji de pe tastatură (🌐 sau 😀).",
+      quitLabel: "Când te-ai lăsat?",
+      quitNow: "Chiar acum",
+      cigsLabel: "Țigări / zi (înainte)",
+      cigsHintOne: "= 1 pachet / zi",
+      cigsHintMany: "= {n} pachete / zi",
+      costLabel: "Preț pachet (lei)",
+      startBtn: "Începe",
+      joinBtn: "Adaugă-mă",
+      progress: "Progres", you: "tu",
+      daysUnit: "zile", hoursExtra: "h în plus",
+      record: "record",
+      comboTotal: "zile combinate, toată echipa",
+      comboTeam: "zile în care ați fost amândoi curați",
+      savings: "Ce ați economisit",
+      cigsNotSmoked: "țigări neaprinse",
+      moneySaved: "economisiți",
+      milestonesTitle: "Reperele tale",
+      remaining: "mai sunt {d}z {h}h",
+      cheerTitle: "Trimite încurajare",
+      cheerTo: "către",
+      cheerEmpty: "Nicio încurajare trimisă încă — fii primul.",
+      personalRecord: "Recordul tău personal",
+      relapseLink: "Am recăzut",
+      relapseText: "Se resetează contorul tău la zero, iar seria curentă de {d} zile rămâne în istoricul tău.",
+      relapseConfirm: "Da, resetează",
+      relapseCancel: "Renunță",
+      credit: "Aer Curat · făcut ca să nu numărați zilele singuri",
+      needsConfig: "Mai e un pas",
+      needsConfigBody: "Fișierul are nevoie de configurarea proiectului tău Firebase ca să poată salva datele împărtășit între voi.",
+      offlineBanner: "Nu ne conectăm la baza de date acum — ce faci se salvează local și se sincronizează când revine conexiunea."
+    },
+    en: {
+      appName: "Aer Curat",
+      invite: "invite", invited: "copied!",
+      switchPerson: "switch",
+      gateTitle: "New space, or an existing one?",
+      gateSub: "A “space” is your shared notebook. You can keep it just for yourself, or share it with a partner or friends — send them the link and they land in the same space.",
+      gateCreate: "Create a new space",
+      gateOr: "or",
+      gateCodeLabel: "Space code (from a link you got)",
+      gateCodePh: "e.g. k3j9dq2a",
+      gateJoin: "Enter space",
+      whoTitle: "Who are you?",
+      whoSub: "Pick yourself from the list, or add yourself if you're first.",
+      since: "smoke-free since",
+      orDivider: "or",
+      nameLabel: "Your name",
+      namePh: "e.g. Alex",
+      emojiLabel: "Your sign",
+      emojiHint: "Tap the circle and pick an emoji from your keyboard (🌐 or 😀).",
+      quitLabel: "When did you quit?",
+      quitNow: "Right now",
+      cigsLabel: "Cigarettes / day (before)",
+      cigsHintOne: "= 1 pack / day",
+      cigsHintMany: "= {n} packs / day",
+      costLabel: "Pack price",
+      startBtn: "Start",
+      joinBtn: "Add me",
+      progress: "Progress", you: "you",
+      daysUnit: "days", hoursExtra: "h extra",
+      record: "best",
+      comboTotal: "combined days, whole team",
+      comboTeam: "days you were both clean",
+      savings: "What you've saved",
+      cigsNotSmoked: "cigarettes not smoked",
+      moneySaved: "saved",
+      milestonesTitle: "Your milestones",
+      remaining: "{d}d {h}h to go",
+      cheerTitle: "Send encouragement",
+      cheerTo: "to",
+      cheerEmpty: "No cheers sent yet — be the first.",
+      personalRecord: "Your personal best",
+      relapseLink: "I slipped up",
+      relapseText: "Your counter resets to zero — your current streak of {d} days stays in your history.",
+      relapseConfirm: "Yes, reset",
+      relapseCancel: "Cancel",
+      credit: "Aer Curat · so you don't count the days alone",
+      needsConfig: "One more step",
+      needsConfigBody: "The file needs your Firebase project configured before it can save shared data between you.",
+      offlineBanner: "Can't reach the database right now — your changes save locally and sync once you're back online."
+    }
+  };
+
+  var MILESTONES_RO = [
+    {ms:20*60*1000, label:"20 de minute", fact:"Pulsul și tensiunea încep să revină spre normal."},
+    {ms:12*60*60*1000, label:"12 ore", fact:"Nivelul de monoxid de carbon din sânge scade la normal."},
+    {ms:24*60*60*1000, label:"1 zi", fact:"Riscul de infarct începe să scadă."},
+    {ms:3*24*60*60*1000, label:"3 zile", fact:"Nicotina a ieșit din organism; gustul și mirosul încep să revină."},
+    {ms:7*24*60*60*1000, label:"1 săptămână", fact:"Cel mai greu prag e trecut - obiceiul zilnic începe să se rupă."},
+    {ms:14*24*60*60*1000, label:"2 săptămâni", fact:"Circulația sângelui și funcția pulmonară încep să se îmbunătățească."},
+    {ms:30*24*60*60*1000, label:"1 lună", fact:"Tusea și respirația scurtă scad simțitor."},
+    {ms:90*24*60*60*1000, label:"3 luni", fact:"Energia zilnică crește vizibil."},
+    {ms:182*24*60*60*1000, label:"6 luni", fact:"Jumătate de an fără țigări - un obicei nou, solid."},
+    {ms:365*24*60*60*1000, label:"1 an", fact:"Riscul de boală cardiacă e aproape înjumătățit față de un fumător activ."}
+  ];
+  var MILESTONES_EN = [
+    {ms:20*60*1000, label:"20 minutes", fact:"Heart rate and blood pressure start dropping toward normal."},
+    {ms:12*60*60*1000, label:"12 hours", fact:"Carbon monoxide level in your blood drops to normal."},
+    {ms:24*60*60*1000, label:"1 day", fact:"Your risk of heart attack starts to decrease."},
+    {ms:3*24*60*60*1000, label:"3 days", fact:"Nicotine is out of your body; taste and smell start coming back."},
+    {ms:7*24*60*60*1000, label:"1 week", fact:"The hardest part is over - the daily habit starts to break."},
+    {ms:14*24*60*60*1000, label:"2 weeks", fact:"Circulation and lung function start improving noticeably."},
+    {ms:30*24*60*60*1000, label:"1 month", fact:"Coughing and shortness of breath drop significantly."},
+    {ms:90*24*60*60*1000, label:"3 months", fact:"Lung function keeps climbing; daily energy is up."},
+    {ms:182*24*60*60*1000, label:"6 months", fact:"Half a year smoke-free - a solid new habit."},
+    {ms:365*24*60*60*1000, label:"1 year", fact:"Heart disease risk is roughly half that of a smoker."}
+  ];
+  var PRESET_CHEERS_RO = [
+    {e:"💪", t:"Ești pe val, nu renunța!"},
+    {e:"🌿", t:"Mândru/ă de tine azi."},
+    {e:"🔥", t:"Hai că poți, încă o zi!"},
     {e:"🫶", t:"Sunt aici cu tine."},
-    {e:"🎉", t:"Felicitari pentru inca o zi curata!"},
-    {e:"☀️", t:"O sa fie o zi buna."}
+    {e:"🎉", t:"Felicitări pentru încă o zi curată!"},
+    {e:"☀️", t:"O să fie o zi bună."}
   ];
-  var MILESTONES = [
-    {ms:20*60*1000, label:"20 de minute", fact:"Pulsul si tensiunea incep sa revina spre normal."},
-    {ms:12*60*60*1000, label:"12 ore", fact:"Nivelul de monoxid de carbon din sange scade la normal."},
-    {ms:24*60*60*1000, label:"1 zi", fact:"Riscul de infarct incepe sa scada."},
-    {ms:3*24*60*60*1000, label:"3 zile", fact:"Nicotina a iesit din organism; gustul si mirosul incep sa revina."},
-    {ms:7*24*60*60*1000, label:"1 saptamana", fact:"Cel mai greu prag e trecut - obiceiul zilnic incepe sa se rupa."},
-    {ms:14*24*60*60*1000, label:"2 saptamani", fact:"Circulatia sangelui si functia pulmonara incep sa se imbunatateasca."},
-    {ms:30*24*60*60*1000, label:"1 luna", fact:"Tusea si respiratia scurta scad simtitor."},
-    {ms:90*24*60*60*1000, label:"3 luni", fact:"Energia zilnica creste vizibil."},
-    {ms:182*24*60*60*1000, label:"6 luni", fact:"Jumatate de an fara tigari - un obicei nou, solid."},
-    {ms:365*24*60*60*1000, label:"1 an", fact:"Riscul de boala cardiaca e aproape injumatatit fata de un fumator activ."}
+  var PRESET_CHEERS_EN = [
+    {e:"💪", t:"You're doing great, keep going!"},
+    {e:"🌿", t:"Proud of you today."},
+    {e:"🔥", t:"You've got this, one more day!"},
+    {e:"🫶", t:"I'm right here with you."},
+    {e:"🎉", t:"Congrats on another clean day!"},
+    {e:"☀️", t:"It's going to be a good day."}
   ];
 
+  var EMOJIS_DEFAULT = "🌿";
+
+  var lang = "ro";
+  try { lang = localStorage.getItem("aerCuratLang") || "ro"; } catch(e){}
+
+  function t(key, vars){
+    var s = (STRINGS[lang] && STRINGS[lang][key]) || STRINGS.ro[key] || key;
+    if(vars){ Object.keys(vars).forEach(function(k){ s = s.replace("{"+k+"}", vars[k]); }); }
+    return s;
+  }
+  function milestones(){ return lang === "en" ? MILESTONES_EN : MILESTONES_RO; }
+  function presetCheers(){ return lang === "en" ? PRESET_CHEERS_EN : PRESET_CHEERS_RO; }
+
+  function toggleLang(){
+    lang = lang === "ro" ? "en" : "ro";
+    try{ localStorage.setItem("aerCuratLang", lang); }catch(e){}
+    render();
+  }
+
+  // ---------- theme ----------
+  var storedTheme = null;
+  try { storedTheme = localStorage.getItem("aerCuratTheme"); } catch(e){}
+  function applyTheme(theme){
+    if(theme){ document.documentElement.setAttribute("data-theme", theme); }
+    else { document.documentElement.removeAttribute("data-theme"); }
+  }
+  applyTheme(storedTheme);
+  function systemPrefersDark(){ return !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches); }
+  function currentTheme(){
+    var attr = document.documentElement.getAttribute("data-theme");
+    return attr || (systemPrefersDark() ? "dark" : "light");
+  }
+  function toggleTheme(){
+    var next = currentTheme() === "dark" ? "light" : "dark";
+    try{ localStorage.setItem("aerCuratTheme", next); }catch(e){}
+    applyTheme(next);
+    render();
+  }
+
+  // ---------- state ----------
   var state = {people:{}, relapses:[], cheers:[]};
   var spaceId = (location.hash || "").replace(/^#/, "").trim();
   var myId = null;
   try { myId = spaceId ? localStorage.getItem("aerCuratMyId_" + spaceId) : null; } catch(e){}
-  var pendingEmoji = EMOJIS[0];
+  var pendingEmoji = EMOJIS_DEFAULT;
   var offline = false;
 
   function genSpaceCode(){
@@ -233,7 +443,7 @@
     return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
   }); }
   function fmtDate(iso){
-    try{ return new Date(iso).toLocaleDateString("ro-RO",{day:"numeric",month:"short",year:"numeric"}); }
+    try{ return new Date(iso).toLocaleDateString(lang === "en" ? "en-GB" : "ro-RO",{day:"numeric",month:"short",year:"numeric"}); }
     catch(e){ return iso; }
   }
   function elapsedMs(iso){ return Math.max(0, Date.now() - new Date(iso).getTime()); }
@@ -245,13 +455,14 @@
   function relTime(iso){
     var ms = Date.now() - new Date(iso).getTime();
     var m = Math.floor(ms/60000);
-    if(m < 1) return "acum";
+    if(m < 1) return lang === "en" ? "now" : "acum";
     if(m < 60) return m+"m";
     var h = Math.floor(m/60);
     if(h < 24) return h+"h";
     return Math.floor(h/24)+"z";
   }
-  function fmtNumber(n){ return Math.round(n).toLocaleString("ro-RO"); }
+  function fmtNumber(n){ return Math.round(n).toLocaleString(lang === "en" ? "en-GB" : "ro-RO"); }
+  function packsPerDay(p){ return Math.ceil((p.cigsPerDay||0) / PACK_SIZE); }
   function personListFrom(s){
     return Object.values(s.people).sort(function(a,b){ return a.createdAt-b.createdAt; });
   }
@@ -314,7 +525,7 @@
         el = document.createElement("div");
         el.id = "saving-note";
         el.className = "saving-note";
-        el.textContent = "Se salveaza…";
+        el.textContent = "···";
         document.body.appendChild(el);
       }
     } else if(el){ el.remove(); }
@@ -351,28 +562,45 @@
   }
 
   function renderSetupNeeded(){
-    return '<div class="setup-config"><h2>Mai e un pas</h2>' +
-      '<p>Fisierul are nevoie de configurarea proiectului tau Firebase ca sa poata salva datele impartasit intre voi doi.</p>' +
-      '<p>Deschide fisierul <code>index.html</code>, gaseste blocul <code>firebaseConfig</code> si inlocuieste valorile cu cele din Firebase Console &rarr; Project settings &rarr; Your apps.</p>' +
+    return '<div class="glass setup-config"><h2>'+t("needsConfig")+'</h2>' +
+      '<p>'+t("needsConfigBody")+'</p>' +
+      '<p>Deschide fișierul <code>index.html</code>, găsește blocul <code>firebaseConfig</code> și înlocuiește valorile.</p>' +
       '<pre>const firebaseConfig = {\n  apiKey: "...",\n  authDomain: "...",\n  projectId: "...",\n  storageBucket: "...",\n  messagingSenderId: "...",\n  appId: "..."\n};</pre>' +
       '</div>';
   }
 
-  function renderSpaceGate(){
-    var html = '<div class="onboard">';
-    html += '<h2>Un spatiu nou sau unul existent?</h2>';
-    html += '<p class="sub">Un "spatiu" e caietul vostru comun. Poti sta singur/a in el, sau il poti imparti cu partenerul/prietenii tai — le dai linkul si intra direct in acelasi spatiu.</p>';
-    html += '<button type="button" class="btn primary" id="gate-create" style="width:100%;margin-bottom:14px;">Creeaza un spatiu nou</button>';
-    html += '<div class="divider-or">sau</div>';
-    html += '<form id="gate-join" class="setup">';
-    html += '<div class="field"><label>Cod de spatiu (din linkul primit)</label><input id="gate-code" placeholder="ex: k3j9dq2a"></div>';
-    html += '<button type="submit" class="btn ghost">Intra in spatiu</button>';
-    html += '</form>';
+  function renderTopToolbar(){
+    var html = '<div class="toolbar">';
+    html += '<button type="button" class="pill-btn" id="lang-btn">'+(lang === "ro" ? "RO" : "EN")+'</button>';
+    html += '<button type="button" class="pill-btn" id="theme-btn">'+(currentTheme() === "dark" ? "🌙" : "☀️")+'</button>';
     html += '</div>';
     return html;
   }
 
+  function renderSpaceGate(){
+    var html = '<header class="top"><div class="top-inner">';
+    html += '<div class="brand"><span class="dot"></span> '+t("appName")+'</div>';
+    html += renderTopToolbar();
+    html += '</div></header>';
+    html += '<div class="wrap"><div class="glass onboard" style="margin-top:28px;">';
+    html += '<h2>'+t("gateTitle")+'</h2>';
+    html += '<p class="sub">'+t("gateSub")+'</p>';
+    html += '<button type="button" class="btn primary" id="gate-create" style="width:100%;margin-bottom:6px;">'+t("gateCreate")+'</button>';
+    html += '<div class="divider-or">'+t("gateOr")+'</div>';
+    html += '<form id="gate-join" class="setup">';
+    html += '<div class="field"><label>'+t("gateCodeLabel")+'</label><input id="gate-code" placeholder="'+t("gateCodePh")+'"></div>';
+    html += '<button type="submit" class="btn ghost">'+t("gateJoin")+'</button>';
+    html += '</form>';
+    html += '</div></div>';
+    return html;
+  }
+
   function wireGateEvents(){
+    var langBtn = document.getElementById("lang-btn");
+    if(langBtn) langBtn.addEventListener("click", toggleLang);
+    var themeBtn = document.getElementById("theme-btn");
+    if(themeBtn) themeBtn.addEventListener("click", toggleTheme);
+
     var createBtn = document.getElementById("gate-create");
     if(createBtn) createBtn.addEventListener("click", function(){
       var code = genSpaceCode();
@@ -401,7 +629,7 @@
     var html = "";
     html += renderHeader(me);
     if(offline){
-      html += '<div class="status-banner warn">Nu ne conectam la baza de date acum — ce faci se salveaza local si o sa se sincronizeze cand revine conexiunea.</div>';
+      html += '<div class="status-banner warn">'+t("offlineBanner")+'</div>';
     }
     html += '<div class="wrap">';
     if(!me){
@@ -409,38 +637,39 @@
     } else {
       html += renderDashboard(s, me, people);
     }
-    html += '<footer class="credit">Aer Curat &middot; facut ca sa nu numarati zilele singuri</footer>';
+    html += '<footer class="credit">'+t("credit")+'</footer>';
     html += '</div>';
     return html;
   }
 
   function renderHeader(me){
     var html = '<header class="top"><div class="top-inner">';
-    html += '<div class="brand"><span class="dot"></span> Aer Curat</div>';
+    html += '<div class="brand"><span class="dot"></span> '+t("appName")+'</div>';
+    html += renderTopToolbar();
     html += '<div class="whoami">';
     if(me){
-      html += me.emoji + ' ' + esc(me.name) + ' <button id="switch-btn">schimba</button>';
+      html += me.emoji + ' ' + esc(me.name) + ' <button type="button" class="pill-btn" id="switch-btn">'+t("switchPerson")+'</button>';
     }
-    html += ' <button id="share-btn" title="Copiaza linkul acestui spatiu">invita</button>';
+    html += ' <button type="button" class="pill-btn" id="share-btn" title="'+t("invite")+'">🔗 '+t("invite")+'</button>';
     html += '</div>';
     html += '</div></header>';
     return html;
   }
 
   function renderOnboarding(people){
-    var html = '<div class="onboard">';
-    html += '<h2>Cine esti?</h2>';
-    html += '<p class="sub">Alege-te din lista, sau adauga-te daca esti primul.</p>';
+    var html = '<div class="glass onboard" style="margin-top:20px;">';
+    html += '<h2>'+t("whoTitle")+'</h2>';
+    html += '<p class="sub">'+t("whoSub")+'</p>';
     if(people.length){
       html += '<div class="claim-list">';
       people.forEach(function(p){
         html += '<button type="button" class="claim-card" data-claim="'+p.id+'">' +
           '<span class="emoji">'+p.emoji+'</span>' +
-          '<span><strong>'+esc(p.name)+'</strong><span class="meta">fara fum din '+fmtDate(p.quitDate)+'</span></span>' +
+          '<span><strong>'+esc(p.name)+'</strong><span class="meta">'+t("since")+' '+fmtDate(p.quitDate)+'</span></span>' +
           '</button>';
       });
       html += '</div>';
-      html += '<div class="divider-or">sau</div>';
+      html += '<div class="divider-or">'+t("orDivider")+'</div>';
     }
     html += renderSetupForm(people.length === 0);
     html += '</div>';
@@ -450,19 +679,17 @@
   function renderSetupForm(first){
     var nowLocal = new Date(Date.now() - new Date().getTimezoneOffset()*60000).toISOString().slice(0,16);
     var html = '<form class="setup" id="setup-form">';
-    html += '<div class="field"><label>Numele tau</label><input required id="f-name" placeholder="ex: Ana"></div>';
-    html += '<div class="field"><label>Alege un semn</label><div class="emoji-pick" id="emoji-pick">';
-    EMOJIS.forEach(function(em,i){
-      html += '<button type="button" data-emoji="'+em+'" class="'+(i===0?'sel':'')+'">'+em+'</button>';
-    });
-    html += '</div></div>';
-    html += '<div class="field"><label>De cand esti fara fum</label><input type="datetime-local" id="f-quitdate" value="'+nowLocal+'"></div>';
-    html += '<div class="two-col">';
-    html += '<div class="field"><label>Tigari / zi (inainte)</label><input type="number" min="0" step="1" id="f-cigsday" value="15"></div>';
-    html += '<div class="field"><label>Tigari / pachet</label><input type="number" min="1" step="1" id="f-cigspack" value="20"></div>';
+    html += '<div class="field"><label>'+t("nameLabel")+'</label><input required id="f-name" placeholder="'+t("namePh")+'"></div>';
+    html += '<div class="field"><label>'+t("emojiLabel")+'</label>';
+    html += '<div class="emoji-row"><input id="f-emoji" class="emoji-input" value="'+EMOJIS_DEFAULT+'" maxlength="8" onfocus="this.select()"><span class="emoji-hint">'+t("emojiHint")+'</span></div>';
     html += '</div>';
-    html += '<div class="field"><label>Pret pachet (lei)</label><input type="number" min="0" step="0.5" id="f-cost" value="30"></div>';
-    html += '<button type="submit" class="btn primary">'+(first ? "Incepe" : "Adauga-ma")+'</button>';
+    html += '<div class="field"><label>'+t("quitLabel")+'</label>';
+    html += '<div class="quit-row"><input type="datetime-local" id="f-quitdate" value="'+nowLocal+'">';
+    html += '<button type="button" class="btn ghost" id="quit-now-btn">'+t("quitNow")+'</button></div></div>';
+    html += '<div class="field"><label>'+t("cigsLabel")+'</label><input type="number" min="0" step="1" id="f-cigsday" value="20">';
+    html += '<div class="hint" id="cigs-hint">'+t("cigsHintOne")+'</div></div>';
+    html += '<div class="field"><label>'+t("costLabel")+'</label><input type="number" min="0" step="0.5" id="f-cost" value="30"></div>';
+    html += '<button type="submit" class="btn primary">'+(first ? t("startBtn") : t("joinBtn"))+'</button>';
     html += '</form>';
     return html;
   }
@@ -470,7 +697,7 @@
   function renderDashboard(s, me, people){
     var html = "";
 
-    html += '<section><p class="eyebrow">Progres</p><div class="duo">';
+    html += '<section><p class="eyebrow">'+t("progress")+'</p><div class="duo">';
     people.forEach(function(p){
       html += renderStreakCard(p, p.id === me.id);
     });
@@ -484,32 +711,32 @@
         if(d < minStreak) minStreak = d;
       });
       html += '<div class="combo">';
-      html += '<div class="tile"><div class="num v">'+total+'</div><div class="l">zile combinate, toata echipa</div></div>';
-      html += '<div class="tile"><div class="num v">'+minStreak+'</div><div class="l">zile in care ati fost amandoi curati</div></div>';
+      html += '<div class="glass tile"><div class="num v">'+total+'</div><div class="l">'+t("comboTotal")+'</div></div>';
+      html += '<div class="glass tile"><div class="num v">'+minStreak+'</div><div class="l">'+t("comboTeam")+'</div></div>';
       html += '</div>';
     }
     html += '</section>';
 
-    html += '<section><p class="eyebrow">Ce ati economisit</p><div class="stats-grid">';
+    html += '<section><p class="eyebrow">'+t("savings")+'</p><div class="stats-grid">';
     people.forEach(function(p){
       var days = elapsedMs(p.quitDate)/86400000;
       var cigs = days * (p.cigsPerDay||0);
-      var money = p.cigsPerPack ? (cigs/p.cigsPerPack)*(p.costPerPack||0) : 0;
-      html += '<div class="stat-tile"><div class="num v">'+fmtNumber(cigs)+'</div><div class="l">tigari neaprinse &middot; '+p.emoji+' '+esc(p.name)+'</div></div>';
-      html += '<div class="stat-tile"><div class="num v">'+fmtNumber(money)+' lei</div><div class="l">economisiti &middot; '+p.emoji+' '+esc(p.name)+'</div></div>';
+      var money = packsPerDay(p) * (p.costPerPack||0) * days;
+      html += '<div class="glass stat-tile"><div class="num v">'+fmtNumber(cigs)+'</div><div class="l">'+t("cigsNotSmoked")+' &middot; '+p.emoji+' '+esc(p.name)+'</div></div>';
+      html += '<div class="glass stat-tile"><div class="num v">'+fmtNumber(money)+' lei</div><div class="l">'+t("moneySaved")+' &middot; '+p.emoji+' '+esc(p.name)+'</div></div>';
     });
     html += '</div></section>';
 
-    html += '<section><p class="eyebrow">Reperele tale</p><div class="milestones">';
+    html += '<section><p class="eyebrow">'+t("milestonesTitle")+'</p><div class="glass milestones">';
     var elapsed = elapsedMs(me.quitDate);
-    MILESTONES.forEach(function(m){
+    milestones().forEach(function(m){
       var done = elapsed >= m.ms;
       html += '<div class="m-row '+(done?'done':'')+'">';
       html += '<div class="m-mark">'+(done?'✓':'')+'</div>';
       html += '<div><div class="m-label">'+m.label+'</div><div class="m-fact">'+m.fact+'</div>';
       if(!done){
         var rem = elapsedParts(m.ms - elapsed);
-        html += '<div class="m-eta">mai sunt '+rem.days+'z '+rem.hours+'h</div>';
+        html += '<div class="m-eta">'+t("remaining",{d:rem.days,h:rem.hours})+'</div>';
       }
       html += '</div></div>';
     });
@@ -517,36 +744,36 @@
 
     if(people.length > 1){
       var target = otherPeople()[0];
-      html += '<section><p class="eyebrow">Trimite incurajare';
-      if(target) html += ' catre ' + target.emoji + ' ' + esc(target.name);
+      html += '<section><p class="eyebrow">'+t("cheerTitle");
+      if(target) html += ' '+t("cheerTo")+' ' + target.emoji + ' ' + esc(target.name);
       html += '</p><div class="cheers">';
       html += '<div class="cheer-presets">';
-      PRESET_CHEERS.forEach(function(c,i){
+      presetCheers().forEach(function(c,i){
         html += '<button type="button" class="cheer-btn" data-cheer="'+i+'">'+c.e+' '+esc(c.t)+'</button>';
       });
       html += '</div>';
       var feed = s.cheers.slice(-5).reverse();
       html += '<div class="cheer-feed">';
       if(feed.length === 0){
-        html += '<div class="empty-note">Nicio incurajare trimisa inca — fii primul.</div>';
+        html += '<div class="empty-note">'+t("cheerEmpty")+'</div>';
       } else {
         feed.forEach(function(c){
           var fromP = s.people[c.from];
-          html += '<div class="cheer-item"><span class="who">'+(fromP?fromP.emoji:'')+' '+esc(fromP?fromP.name:'?')+'</span>' +
+          html += '<div class="glass cheer-item"><span class="who">'+(fromP?fromP.emoji:'')+' '+esc(fromP?fromP.name:'?')+'</span>' +
             '<span>'+esc(c.msg)+'</span><span class="when">'+relTime(c.at)+'</span></div>';
         });
       }
       html += '</div></div></section>';
     }
 
-    html += '<section><div class="empty-note">Recordul tau personal: <strong>'+bestStreakDays(me.id)+' zile</strong></div></section>';
+    html += '<section><div class="empty-note">'+t("personalRecord")+': <strong>'+bestStreakDays(me.id)+' '+t("daysUnit")+'</strong></div></section>';
 
     html += '<div class="danger-zone" id="danger-zone">';
-    html += '<button type="button" class="relapse-link" id="relapse-open">Am recazut</button>';
-    html += '<div id="relapse-confirm" hidden class="confirm-box">' +
-      '<p>Se reseteaza contorul tau la zero, iar seria curenta de '+elapsedParts(elapsed).days+' zile ramane in istoricul tau.</p>' +
-      '<div class="row"><button type="button" class="btn warn" id="relapse-confirm-btn">Da, reseteaza</button>' +
-      '<button type="button" class="btn ghost" id="relapse-cancel-btn">Renunta</button></div></div>';
+    html += '<button type="button" class="relapse-link" id="relapse-open">'+t("relapseLink")+'</button>';
+    html += '<div id="relapse-confirm" hidden class="glass confirm-box">' +
+      '<p>'+t("relapseText",{d:elapsedParts(elapsed).days})+'</p>' +
+      '<div class="row"><button type="button" class="btn warn" id="relapse-confirm-btn">'+t("relapseConfirm")+'</button>' +
+      '<button type="button" class="btn ghost" id="relapse-cancel-btn">'+t("relapseCancel")+'</button></div></div>';
     html += '</div>';
 
     return html;
@@ -554,20 +781,25 @@
 
   function renderStreakCard(p, isMe){
     var parts = elapsedParts(elapsedMs(p.quitDate));
-    var html = '<div class="streak-card '+(isMe?'me':'')+'">';
+    var html = '<div class="glass streak-card '+(isMe?'me':'')+'">';
     html += '<div class="who"><span class="emoji">'+p.emoji+'</span> '+esc(p.name);
-    if(isMe) html += ' <span class="badge-me">tu</span>';
+    if(isMe) html += ' <span class="badge-me">'+t("you")+'</span>';
     html += '</div>';
-    html += '<div class="streaknum num">'+parts.days+'<small>zile</small></div>';
-    html += '<div class="since">de cand: '+fmtDate(p.quitDate)+' &middot; '+parts.hours+'h in plus</div>';
+    html += '<div class="streaknum num">'+parts.days+'<small>'+t("daysUnit")+'</small></div>';
+    html += '<div class="since">'+t("since")+' '+fmtDate(p.quitDate)+' &middot; '+parts.hours+t("hoursExtra")+'</div>';
     var best = bestStreakDays(p.id);
-    if(best > parts.days) html += '<div class="best">🏆 record: '+best+' zile</div>';
+    if(best > parts.days) html += '<div class="best">🏆 '+t("record")+': '+best+' '+t("daysUnit")+'</div>';
     html += '</div>';
     return html;
   }
 
   // ---------- events ----------
   function wireEvents(){
+    var langBtn = document.getElementById("lang-btn");
+    if(langBtn) langBtn.addEventListener("click", toggleLang);
+    var themeBtn = document.getElementById("theme-btn");
+    if(themeBtn) themeBtn.addEventListener("click", toggleTheme);
+
     var switchBtn = document.getElementById("switch-btn");
     if(switchBtn) switchBtn.addEventListener("click", function(){
       try{ localStorage.removeItem("aerCuratMyId_" + spaceId); }catch(e){}
@@ -578,13 +810,13 @@
     if(shareBtn) shareBtn.addEventListener("click", function(){
       var url = location.href;
       function done(){
-        shareBtn.textContent = "copiat!";
-        setTimeout(function(){ shareBtn.textContent = "invita"; }, 1500);
+        shareBtn.textContent = "✓ " + t("invited");
+        setTimeout(function(){ shareBtn.textContent = "🔗 " + t("invite"); }, 1500);
       }
       if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(url).then(done).catch(function(){ window.prompt("Copiaza linkul:", url); });
+        navigator.clipboard.writeText(url).then(done).catch(function(){ window.prompt("Copy:", url); });
       } else {
-        window.prompt("Copiaza linkul:", url);
+        window.prompt("Copy:", url);
       }
     });
 
@@ -596,14 +828,18 @@
       });
     });
 
-    var emojiPick = document.getElementById("emoji-pick");
-    if(emojiPick){
-      emojiPick.querySelectorAll("button").forEach(function(b){
-        b.addEventListener("click", function(){
-          emojiPick.querySelectorAll("button").forEach(function(x){ x.classList.remove("sel"); });
-          b.classList.add("sel");
-          pendingEmoji = b.getAttribute("data-emoji");
-        });
+    var quitNowBtn = document.getElementById("quit-now-btn");
+    if(quitNowBtn) quitNowBtn.addEventListener("click", function(){
+      var nowLocal = new Date(Date.now() - new Date().getTimezoneOffset()*60000).toISOString().slice(0,16);
+      document.getElementById("f-quitdate").value = nowLocal;
+    });
+
+    var cigsInput = document.getElementById("f-cigsday");
+    if(cigsInput){
+      cigsInput.addEventListener("input", function(){
+        var n = Math.ceil((parseFloat(cigsInput.value)||0) / PACK_SIZE);
+        var hintEl = document.getElementById("cigs-hint");
+        if(hintEl) hintEl.textContent = n <= 1 ? t("cigsHintOne") : t("cigsHintMany",{n:n});
       });
     }
 
@@ -613,14 +849,14 @@
         ev.preventDefault();
         var name = document.getElementById("f-name").value.trim();
         if(!name) return;
+        var emoji = document.getElementById("f-emoji").value.trim() || EMOJIS_DEFAULT;
         var quitLocal = document.getElementById("f-quitdate").value;
         var quitIso = quitLocal ? new Date(quitLocal).toISOString() : new Date().toISOString();
         var id = uid("p_");
         var person = {
-          id: id, name: name, emoji: pendingEmoji,
+          id: id, name: name, emoji: emoji,
           quitDate: quitIso,
           cigsPerDay: parseFloat(document.getElementById("f-cigsday").value) || 0,
-          cigsPerPack: parseFloat(document.getElementById("f-cigspack").value) || 20,
           costPerPack: parseFloat(document.getElementById("f-cost").value) || 0,
           createdAt: Date.now()
         };
@@ -656,7 +892,7 @@
     document.querySelectorAll("[data-cheer]").forEach(function(btn){
       btn.addEventListener("click", function(){
         var idx = parseInt(btn.getAttribute("data-cheer"), 10);
-        var preset = PRESET_CHEERS[idx];
+        var preset = presetCheers()[idx];
         var target = otherPeople()[0];
         if(!target) return;
         var next = JSON.parse(JSON.stringify(state));
