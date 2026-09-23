@@ -209,10 +209,17 @@
   ];
 
   var state = {people:{}, relapses:[], cheers:[]};
+  var spaceId = (location.hash || "").replace(/^#/, "").trim();
   var myId = null;
-  try { myId = localStorage.getItem("aerCuratMyId"); } catch(e){}
+  try { myId = spaceId ? localStorage.getItem("aerCuratMyId_" + spaceId) : null; } catch(e){}
   var pendingEmoji = EMOJIS[0];
   var offline = false;
+
+  function genSpaceCode(){
+    var bytes = new Uint8Array(6);
+    (window.crypto || window.msCrypto).getRandomValues(bytes);
+    return Array.from(bytes).map(function(b){ return (b % 36).toString(36); }).join("");
+  }
 
   function uid(prefix){ return prefix + Math.random().toString(36).slice(2,9); }
   function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g, function(c){
@@ -257,30 +264,40 @@
 
   // ---------- persistence (Firestore) ----------
   var db = null, stateRef = null, configured = firebaseConfig.apiKey !== "PASTE_API_KEY_HERE";
+  var connected = false;
 
   if(configured){
     try{
       var fbApp = initializeApp(firebaseConfig);
       db = getFirestore(fbApp);
-      stateRef = doc(db, "app", "state");
-      onSnapshot(stateRef, function(snap){
-        if(snap.exists()){
-          var data = snap.data();
-          state = {
-            people: data.people || {},
-            relapses: data.relapses || [],
-            cheers: data.cheers || []
-          };
-        }
-        offline = false;
-        render();
-      }, function(err){
-        offline = true;
-        render();
-      });
     }catch(e){
       configured = false;
     }
+  }
+
+  function connectToSpace(id){
+    if(!configured || !db || connected) return;
+    connected = true;
+    stateRef = doc(db, "spaces", id);
+    onSnapshot(stateRef, function(snap){
+      if(snap.exists()){
+        var data = snap.data();
+        state = {
+          people: data.people || {},
+          relapses: data.relapses || [],
+          cheers: data.cheers || []
+        };
+      }
+      offline = false;
+      render();
+    }, function(err){
+      offline = true;
+      render();
+    });
+  }
+
+  if(configured && spaceId){
+    connectToSpace(spaceId);
   }
 
   function showSaving(on){
@@ -317,6 +334,11 @@
       app.innerHTML = renderSetupNeeded();
       return;
     }
+    if(!spaceId){
+      app.innerHTML = renderSpaceGate();
+      wireGateEvents();
+      return;
+    }
     app.innerHTML = renderApp(state);
     wireEvents();
   }
@@ -327,6 +349,42 @@
       '<p>Deschide fisierul <code>index.html</code>, gaseste blocul <code>firebaseConfig</code> si inlocuieste valorile cu cele din Firebase Console &rarr; Project settings &rarr; Your apps.</p>' +
       '<pre>const firebaseConfig = {\n  apiKey: "...",\n  authDomain: "...",\n  projectId: "...",\n  storageBucket: "...",\n  messagingSenderId: "...",\n  appId: "..."\n};</pre>' +
       '</div>';
+  }
+
+  function renderSpaceGate(){
+    var html = '<div class="onboard">';
+    html += '<h2>Un spatiu nou sau unul existent?</h2>';
+    html += '<p class="sub">Un "spatiu" e caietul vostru comun. Poti sta singur/a in el, sau il poti imparti cu partenerul/prietenii tai — le dai linkul si intra direct in acelasi spatiu.</p>';
+    html += '<button type="button" class="btn primary" id="gate-create" style="width:100%;margin-bottom:14px;">Creeaza un spatiu nou</button>';
+    html += '<div class="divider-or">sau</div>';
+    html += '<form id="gate-join" class="setup">';
+    html += '<div class="field"><label>Cod de spatiu (din linkul primit)</label><input id="gate-code" placeholder="ex: k3j9dq2a"></div>';
+    html += '<button type="submit" class="btn ghost">Intra in spatiu</button>';
+    html += '</form>';
+    html += '</div>';
+    return html;
+  }
+
+  function wireGateEvents(){
+    var createBtn = document.getElementById("gate-create");
+    if(createBtn) createBtn.addEventListener("click", function(){
+      var code = genSpaceCode();
+      location.hash = code;
+      spaceId = code;
+      connectToSpace(spaceId);
+      render();
+    });
+    var joinForm = document.getElementById("gate-join");
+    if(joinForm) joinForm.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var code = document.getElementById("gate-code").value.trim().toLowerCase();
+      if(!code) return;
+      location.hash = code;
+      spaceId = code;
+      try{ myId = localStorage.getItem("aerCuratMyId_" + spaceId); }catch(e){}
+      connectToSpace(spaceId);
+      render();
+    });
   }
 
   function renderApp(s){
@@ -352,9 +410,12 @@
   function renderHeader(me){
     var html = '<header class="top"><div class="top-inner">';
     html += '<div class="brand"><span class="dot"></span> Aer Curat</div>';
+    html += '<div class="whoami">';
     if(me){
-      html += '<div class="whoami">' + me.emoji + ' ' + esc(me.name) + ' <button id="switch-btn">schimba</button></div>';
+      html += me.emoji + ' ' + esc(me.name) + ' <button id="switch-btn">schimba</button>';
     }
+    html += ' <button id="share-btn" title="Copiaza linkul acestui spatiu">invita</button>';
+    html += '</div>';
     html += '</div></header>';
     return html;
   }
@@ -502,14 +563,28 @@
   function wireEvents(){
     var switchBtn = document.getElementById("switch-btn");
     if(switchBtn) switchBtn.addEventListener("click", function(){
-      try{ localStorage.removeItem("aerCuratMyId"); }catch(e){}
+      try{ localStorage.removeItem("aerCuratMyId_" + spaceId); }catch(e){}
       myId = null; render();
+    });
+
+    var shareBtn = document.getElementById("share-btn");
+    if(shareBtn) shareBtn.addEventListener("click", function(){
+      var url = location.href;
+      function done(){
+        shareBtn.textContent = "copiat!";
+        setTimeout(function(){ shareBtn.textContent = "invita"; }, 1500);
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(done).catch(function(){ window.prompt("Copiaza linkul:", url); });
+      } else {
+        window.prompt("Copiaza linkul:", url);
+      }
     });
 
     document.querySelectorAll("[data-claim]").forEach(function(btn){
       btn.addEventListener("click", function(){
         myId = btn.getAttribute("data-claim");
-        try{ localStorage.setItem("aerCuratMyId", myId); }catch(e){}
+        try{ localStorage.setItem("aerCuratMyId_" + spaceId, myId); }catch(e){}
         render();
       });
     });
@@ -545,7 +620,7 @@
         var next = JSON.parse(JSON.stringify(state));
         next.people[id] = person;
         myId = id;
-        try{ localStorage.setItem("aerCuratMyId", id); }catch(e){}
+        try{ localStorage.setItem("aerCuratMyId_" + spaceId, id); }catch(e){}
         saveState(next);
       });
     }
