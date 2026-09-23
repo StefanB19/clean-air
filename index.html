@@ -99,7 +99,8 @@
     display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
   .brand{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;letter-spacing:.2px}
   .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--primary);box-shadow:0 0 10px 1px var(--primary);}
-  .brand-logo{height:32px;width:32px;border-radius:10px;display:block;box-shadow:0 3px 10px -3px rgba(0,0,0,.4);}
+  .brand-logo{height:46px;width:46px;border-radius:13px;display:block;box-shadow:0 3px 10px -3px rgba(0,0,0,.4);
+    border:none;padding:0;cursor:pointer;background:none;}
   .toolbar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
   .pill-btn{background:var(--glass-strong);border:1px solid var(--glass-border);color:var(--ink);
     font-size:12px;font-weight:700;padding:6px 11px;border-radius:99px;cursor:pointer;
@@ -731,7 +732,7 @@
 
   function renderSpaceGate(){
     var html = '<header class="top"><div class="top-inner">';
-    html += '<div class="brand"><img class="brand-logo" src="icons/apple-touch-icon.png" alt="'+t("appName")+'"></div>';
+    html += '<div class="brand"><img id="logo-btn" class="brand-logo" src="icons/apple-touch-icon.png" alt="'+t("appName")+'" role="button" tabindex="0"></div>';
     html += renderTopToolbar();
     html += '</div></header>';
     html += '<div class="wrap">';
@@ -756,6 +757,8 @@
     if(themeBtn) themeBtn.addEventListener("click", toggleTheme);
     var infoBtn = document.getElementById("info-btn");
     if(infoBtn) infoBtn.addEventListener("click", toggleInfo);
+    var logoBtn = document.getElementById("logo-btn");
+    if(logoBtn) logoBtn.addEventListener("click", goToGate);
 
     var createBtn = document.getElementById("gate-create");
     if(createBtn) createBtn.addEventListener("click", function(){
@@ -801,7 +804,7 @@
 
   function renderHeader(me){
     var html = '<header class="top"><div class="top-inner">';
-    html += '<div class="brand"><img class="brand-logo" src="icons/apple-touch-icon.png" alt="'+t("appName")+'"></div>';
+    html += '<div class="brand"><img id="logo-btn" class="brand-logo" src="icons/apple-touch-icon.png" alt="'+t("appName")+'" role="button" tabindex="0"></div>';
     html += renderTopToolbar();
     html += '<div class="whoami">';
     if(me){
@@ -1014,6 +1017,8 @@
     if(infoBtn) infoBtn.addEventListener("click", toggleInfo);
     var otherSpaceBtn = document.getElementById("other-space-btn");
     if(otherSpaceBtn) otherSpaceBtn.addEventListener("click", goToGate);
+    var logoBtn = document.getElementById("logo-btn");
+    if(logoBtn) logoBtn.addEventListener("click", goToGate);
 
     var switchBtn = document.getElementById("switch-btn");
     if(switchBtn) switchBtn.addEventListener("click", function(){
