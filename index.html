@@ -99,6 +99,7 @@
     display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
   .brand{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;letter-spacing:.2px}
   .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--primary);box-shadow:0 0 10px 1px var(--primary);}
+  .brand-logo{height:32px;width:32px;border-radius:10px;display:block;box-shadow:0 3px 10px -3px rgba(0,0,0,.4);}
   .toolbar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
   .pill-btn{background:var(--glass-strong);border:1px solid var(--glass-border);color:var(--ink);
     font-size:12px;font-weight:700;padding:6px 11px;border-radius:99px;cursor:pointer;
@@ -281,26 +282,29 @@
       emojiLabel: "Semnul tău",
       emojiHint: "Apasă cercul și alege un emoji de pe tastatură (🌐 sau 😀).",
       substancesLabel: "Ce vrei să lași?",
-      substCigs: "Țigări", substVape: "Vape", substWeed: "Trava",
+      substCigs: "Țigări", substVape: "Vape", substWeed: "Iarbă", substHeated: "Tutun încălzit",
       quitLabel: "Când te-ai lăsat?",
       quitNow: "Chiar acum",
       cigsLabel: "Țigări / zi (înainte)",
       cigsHintOne: "= 1 pachet / zi",
       cigsHintMany: "= {n} pachete / zi",
       costLabel: "Preț pachet (lei)",
+      heatedLabel: "Sticks / zi (înainte)",
+      heatedCostLabel: "Preț pachet de sticks (lei)",
       vapeSpendLabel: "Cât cheltuiai pe săptămână pe vape (lei)",
-      weedSpendLabel: "Cât cheltuiai pe săptămână pe trava (lei)",
+      weedSpendLabel: "Cât cheltuiai pe săptămână pe iarbă (lei)",
       startBtn: "Începe",
       joinBtn: "Adaugă-mă",
       pickOneSubstance: "Alege cel puțin un lucru pe care vrei să-l lași.",
       progress: "Progres", you: "tu",
       daysUnit: "zile",
       record: "record",
-      sinceCigs: "fără țigări din", sinceVape: "fără vape din", sinceWeed: "fără trava din", sinceMixed: "fără nimic din",
+      sinceCigs: "fără țigări din", sinceVape: "fără vape din", sinceWeed: "fără iarbă din", sinceHeated: "fără tutun încălzit din", sinceMixed: "fără nimic din",
       comboTotal: "zile combinate, toată echipa",
       comboTeam: "zile în care ați fost amândoi curați",
       savings: "Ce ați economisit",
       cigsNotSmoked: "țigări neaprinse",
+      sticksNotUsed: "sticks neconsumate",
       moneySaved: "economisiți",
       milestonesTitle: "Reperele tale",
       remaining: "mai sunt {d}z {h}h",
@@ -341,13 +345,15 @@
       emojiLabel: "Your sign",
       emojiHint: "Tap the circle and pick an emoji from your keyboard (🌐 or 😀).",
       substancesLabel: "What do you want to quit?",
-      substCigs: "Cigarettes", substVape: "Vape", substWeed: "Weed",
+      substCigs: "Cigarettes", substVape: "Vape", substWeed: "Weed", substHeated: "Heated tobacco",
       quitLabel: "When did you quit?",
       quitNow: "Right now",
       cigsLabel: "Cigarettes / day (before)",
       cigsHintOne: "= 1 pack / day",
       cigsHintMany: "= {n} packs / day",
       costLabel: "Pack price",
+      heatedLabel: "Sticks / day (before)",
+      heatedCostLabel: "Pack of sticks price",
       vapeSpendLabel: "Weekly vape spend",
       weedSpendLabel: "Weekly weed spend",
       startBtn: "Start",
@@ -356,11 +362,12 @@
       progress: "Progress", you: "you",
       daysUnit: "days",
       record: "best",
-      sinceCigs: "smoke-free since", sinceVape: "vape-free since", sinceWeed: "weed-free since", sinceMixed: "clean since",
+      sinceCigs: "smoke-free since", sinceVape: "vape-free since", sinceWeed: "weed-free since", sinceHeated: "smoke-free since", sinceMixed: "clean since",
       comboTotal: "combined days, whole team",
       comboTeam: "days you were both clean",
       savings: "What you've saved",
       cigsNotSmoked: "cigarettes not smoked",
+      sticksNotUsed: "sticks not used",
       moneySaved: "saved",
       milestonesTitle: "Your milestones",
       remaining: "{d}d {h}h to go",
@@ -447,7 +454,10 @@
              "Hidratează-te mai mult - gura uscată e un declanșator comun pentru poftă."],
       weed: ["Insomnia și lipsa poftei de mâncare din primele zile sunt normale și trec.",
              "Mișcarea fizică, chiar și mersul pe jos, ajută vizibil cu iritabilitatea inițială.",
-             "Ai grijă cu alcoolul ca înlocuitor - riști doar să schimbi un obicei cu altul."]
+             "Ai grijă cu alcoolul ca înlocuitor - riști doar să schimbi un obicei cu altul."],
+      heated: ["Multe device-uri (IQOS, Ploom, glo) tot livrează nicotină - poftele apar la fel ca la țigările clasice.",
+             "Dacă renunți treptat, numără sticks-urile pe zi, nu doar \"pufurile\".",
+             "Ține device-ul departe de buzunar/geantă în primele zile - accesul ușor menține obiceiul."]
     },
     en: {
       cigs: ["Keep sugar-free gum or something to chew on for sudden cravings.",
@@ -458,11 +468,14 @@
              "Drink more water - a dry mouth is a common trigger for cravings."],
       weed: ["Insomnia and low appetite in the first days are normal and pass.",
              "Physical movement, even just walking, noticeably helps early irritability.",
-             "Watch out for alcohol as a substitute - you risk just swapping one habit for another."]
+             "Watch out for alcohol as a substitute - you risk just swapping one habit for another."],
+      heated: ["Most heat-not-burn devices (IQOS, Ploom, glo) still deliver nicotine - cravings feel a lot like regular cigarettes.",
+             "If you're tapering off, count sticks per day, not just \"puffs\".",
+             "Keep the device out of your pocket/bag in the first days - easy access keeps the habit alive."]
     }
   };
-  var SUBST_KEYS = ["cigs","vape","weed"];
-  var SUBST_EMOJI = {cigs:"🚬", vape:"💨", weed:"🌿"};
+  var SUBST_KEYS = ["cigs","heated","vape","weed"];
+  var SUBST_EMOJI = {cigs:"🚬", heated:"🔥", vape:"💨", weed:"🌿"};
 
   var EMOJIS_DEFAULT = "🌿";
 
@@ -545,12 +558,14 @@
   }
   function fmtNumber(n){ return Math.round(n).toLocaleString(lang === "en" ? "en-GB" : "ro-RO"); }
   function packsPerDay(p){ return Math.ceil((p.cigsPerDay||0) / PACK_SIZE); }
+  function heatedPacksPerDay(p){ return Math.ceil((p.heatedPerDay||0) / PACK_SIZE); }
   function personSubstances(p){ return (p.substances && p.substances.length) ? p.substances : ["cigs"]; }
   function moneySaved(p){
     var days = elapsedMs(p.quitDate)/86400000;
     var subs = personSubstances(p);
     var total = 0;
     if(subs.indexOf("cigs")>-1) total += packsPerDay(p) * (p.costPerPack||0) * days;
+    if(subs.indexOf("heated")>-1) total += heatedPacksPerDay(p) * (p.heatedCostPerPack||0) * days;
     if(subs.indexOf("vape")>-1) total += ((p.vapeWeekly||0)/7) * days;
     if(subs.indexOf("weed")>-1) total += ((p.weedWeekly||0)/7) * days;
     return total;
@@ -562,12 +577,13 @@
       if(subs[0]==="cigs") return t("sinceCigs");
       if(subs[0]==="vape") return t("sinceVape");
       if(subs[0]==="weed") return t("sinceWeed");
+      if(subs[0]==="heated") return t("sinceHeated");
     }
     return t("sinceMixed");
   }
   function personMilestones(p){
     var subs = personSubstances(p);
-    var hasNic = subs.indexOf("cigs")>-1 || subs.indexOf("vape")>-1;
+    var hasNic = subs.indexOf("cigs")>-1 || subs.indexOf("vape")>-1 || subs.indexOf("heated")>-1;
     var hasWeed = subs.indexOf("weed")>-1;
     var mixed = hasNic && hasWeed;
     var list = [];
@@ -715,7 +731,7 @@
 
   function renderSpaceGate(){
     var html = '<header class="top"><div class="top-inner">';
-    html += '<div class="brand"><span class="dot"></span> '+t("appName")+'</div>';
+    html += '<div class="brand"><img class="brand-logo" src="icons/apple-touch-icon.png" alt="'+t("appName")+'"></div>';
     html += renderTopToolbar();
     html += '</div></header>';
     html += '<div class="wrap">';
@@ -785,7 +801,7 @@
 
   function renderHeader(me){
     var html = '<header class="top"><div class="top-inner">';
-    html += '<div class="brand"><span class="dot"></span> '+t("appName")+'</div>';
+    html += '<div class="brand"><img class="brand-logo" src="icons/apple-touch-icon.png" alt="'+t("appName")+'"></div>';
     html += renderTopToolbar();
     html += '<div class="whoami">';
     if(me){
@@ -841,6 +857,11 @@
     html += '<div class="field"><label>'+t("costLabel")+'</label><input type="number" min="0" step="0.5" id="f-cost" value="30"></div>';
     html += '</div></div>';
 
+    html += '<div id="heated-fields" hidden><div class="two-col">';
+    html += '<div class="field"><label>'+t("heatedLabel")+'</label><input type="number" min="0" step="1" id="f-heatedday" value="20"><div class="hint" id="heated-hint">'+t("cigsHintOne")+'</div></div>';
+    html += '<div class="field"><label>'+t("heatedCostLabel")+'</label><input type="number" min="0" step="0.5" id="f-heatedcost" value="30"></div>';
+    html += '</div></div>';
+
     html += '<div id="vape-fields" hidden><div class="field"><label>'+t("vapeSpendLabel")+'</label><input type="number" min="0" step="5" id="f-vape" value="0"></div></div>';
     html += '<div id="weed-fields" hidden><div class="field"><label>'+t("weedSpendLabel")+'</label><input type="number" min="0" step="5" id="f-weed" value="0"></div></div>';
 
@@ -880,10 +901,14 @@
     html += '<section><p class="eyebrow">'+t("savings")+'</p><div class="stats-grid">';
     people.forEach(function(p){
       var subs = personSubstances(p);
+      var days = elapsedMs(p.quitDate)/86400000;
       if(subs.indexOf("cigs")>-1){
-        var days = elapsedMs(p.quitDate)/86400000;
         var cigs = days * (p.cigsPerDay||0);
         html += '<div class="glass stat-tile"><div class="num v">'+fmtNumber(cigs)+'</div><div class="l">'+t("cigsNotSmoked")+' &middot; '+p.emoji+' '+esc(p.name)+'</div></div>';
+      }
+      if(subs.indexOf("heated")>-1){
+        var sticks = days * (p.heatedPerDay||0);
+        html += '<div class="glass stat-tile"><div class="num v">'+fmtNumber(sticks)+'</div><div class="l">'+t("sticksNotUsed")+' &middot; '+p.emoji+' '+esc(p.name)+'</div></div>';
       }
       html += '<div class="glass stat-tile"><div class="num v">'+fmtNumber(moneySaved(p))+' lei</div><div class="l">'+t("moneySaved")+' &middot; '+p.emoji+' '+esc(p.name)+'</div></div>';
     });
@@ -1023,12 +1048,21 @@
         if(hintEl) hintEl.textContent = n <= 1 ? t("cigsHintOne") : t("cigsHintMany",{n:n});
       });
     }
+    var heatedInput = document.getElementById("f-heatedday");
+    if(heatedInput){
+      heatedInput.addEventListener("input", function(){
+        var n = Math.ceil((parseFloat(heatedInput.value)||0) / PACK_SIZE);
+        var hintEl = document.getElementById("heated-hint");
+        if(hintEl) hintEl.textContent = n <= 1 ? t("cigsHintOne") : t("cigsHintMany",{n:n});
+      });
+    }
 
     document.querySelectorAll(".subst-cb").forEach(function(cb){
       cb.addEventListener("change", function(){
         var on = {};
         document.querySelectorAll(".subst-cb").forEach(function(x){ on[x.value] = x.checked; });
         var cf = document.getElementById("cigs-fields"); if(cf) cf.hidden = !on.cigs;
+        var hf = document.getElementById("heated-fields"); if(hf) hf.hidden = !on.heated;
         var vf = document.getElementById("vape-fields"); if(vf) vf.hidden = !on.vape;
         var wf = document.getElementById("weed-fields"); if(wf) wf.hidden = !on.weed;
       });
@@ -1052,6 +1086,8 @@
           substances: substances,
           cigsPerDay: substances.indexOf("cigs")>-1 ? (parseFloat(document.getElementById("f-cigsday").value)||0) : 0,
           costPerPack: substances.indexOf("cigs")>-1 ? (parseFloat(document.getElementById("f-cost").value)||0) : 0,
+          heatedPerDay: substances.indexOf("heated")>-1 ? (parseFloat(document.getElementById("f-heatedday").value)||0) : 0,
+          heatedCostPerPack: substances.indexOf("heated")>-1 ? (parseFloat(document.getElementById("f-heatedcost").value)||0) : 0,
           vapeWeekly: substances.indexOf("vape")>-1 ? (parseFloat(document.getElementById("f-vape").value)||0) : 0,
           weedWeekly: substances.indexOf("weed")>-1 ? (parseFloat(document.getElementById("f-weed").value)||0) : 0,
           createdAt: Date.now()
