@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aer Curat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+  :root{
+    color-scheme: light;
+    padding-top: env(safe-area-inset-top,0px);
+    padding-bottom: env(safe-area-inset-bottom,0px);
+    --bg:#FBF7F1; --surface:#FFFFFF; --surface-2:#F3ECE1;
+    --ink:#1F2A24; --ink-soft:#5B6B62;
+    --primary:#2F7A63; --primary-ink:#EAF7F1;
+    --accent:#FF7A59; --accent-soft:#FFE3D6; --accent-ink:#3D1F14;
+    --line:#E4DCD0;
+    --shadow: 0 1px 2px rgba(31,42,36,.06), 0 8px 24px -12px rgba(31,42,36,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --bg:#121815; --surface:#1A211D; --surface-2:#20281F;
+      --ink:#EDEAE3; --ink-soft:#9CA79E;
+      --primary:#5FCF9F; --primary-ink:#0E1E17;
+      --accent:#FF8F73; --accent-soft:#3A241D; --accent-ink:#FFE1D3;
+      --line:#2A322C;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 28px -14px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --bg:#121815; --surface:#1A211D; --surface-2:#20281F;
+    --ink:#EDEAE3; --ink-soft:#9CA79E;
+    --primary:#5FCF9F; --primary-ink:#0E1E17;
+    --accent:#FF8F73; --accent-soft:#3A241D; --accent-ink:#FFE1D3;
+    --line:#2A322C;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 28px -14px rgba(0,0,0,.6);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:var(--bg);color:var(--ink);
+    font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+  h1,h2,h3{font-family:"Fraunces",Georgia,serif;margin:0;text-wrap:balance}
+  .num{font-family:"Fraunces",Georgia,serif;font-variant-numeric:tabular-nums;}
+  button{font-family:inherit}
+
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px 48px;}
+
+  header.top{
+    position:sticky; top:env(safe-area-inset-top,0px); z-index:5;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .top-inner{max-width:720px;margin:0 auto;padding:14px 16px;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .brand{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;letter-spacing:.2px}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--primary)}
+  .whoami{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-soft)}
+  .whoami button{background:none;border:none;color:var(--primary);font-size:13px;font-weight:700;cursor:pointer;padding:4px 0}
+
+  .status-banner{padding:10px 16px;font-size:13px;text-align:center;}
+  .status-banner.warn{background:var(--accent-soft);color:var(--accent-ink);}
+  .status-banner.info{background:var(--surface-2);color:var(--ink-soft);}
+
+  section{margin-top:28px}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-soft);margin:0 0 10px}
+
+  .duo{display:flex;gap:12px;flex-wrap:wrap}
+  .streak-card{flex:1 1 220px;background:var(--surface);border:1px solid var(--line);
+    border-radius:20px;padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+  .streak-card.me{border-color:color-mix(in srgb, var(--primary) 45%, var(--line));}
+  .streak-card .who{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px}
+  .streak-card .emoji{font-size:20px;line-height:1}
+  .streak-card .badge-me{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--primary);background:color-mix(in srgb, var(--primary) 14%, transparent);
+    padding:2px 7px;border-radius:99px}
+  .streak-card .streaknum{font-size:44px;line-height:1;margin-top:14px;color:var(--ink)}
+  .streak-card .streaknum small{font-size:16px;font-weight:400;color:var(--ink-soft);margin-left:6px}
+  .streak-card .since{font-size:12px;color:var(--ink-soft);margin-top:6px}
+  .streak-card .best{font-size:12px;color:var(--ink-soft);margin-top:10px;display:flex;gap:5px;align-items:center}
+
+  .combo{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+  .combo .tile{flex:1 1 160px;background:var(--surface-2);border-radius:16px;padding:14px 16px}
+  .combo .tile .v{font-size:24px}
+  .combo .tile .l{font-size:12px;color:var(--ink-soft);margin-top:2px}
+
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+  .stat-tile{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;}
+  .stat-tile .v{font-size:26px}
+  .stat-tile .l{font-size:12px;color:var(--ink-soft);margin-top:4px}
+
+  .milestones{display:flex;flex-direction:column;gap:0;border:1px solid var(--line);
+    border-radius:16px;overflow:hidden;background:var(--surface)}
+  .m-row{display:flex;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line);align-items:flex-start}
+  .m-row:last-child{border-bottom:none}
+  .m-row.done{background:color-mix(in srgb, var(--primary) 6%, transparent)}
+  .m-mark{width:26px;height:26px;border-radius:50%;flex:0 0 26px;display:flex;align-items:center;
+    justify-content:center;font-size:13px;margin-top:1px;
+    background:var(--surface-2);color:var(--ink-soft);border:1px solid var(--line)}
+  .m-row.done .m-mark{background:var(--primary);color:var(--primary-ink);border-color:transparent}
+  .m-label{font-weight:700;font-size:14px}
+  .m-fact{font-size:12.5px;color:var(--ink-soft);margin-top:2px}
+  .m-eta{font-size:11px;color:var(--ink-soft);margin-top:3px;font-weight:600}
+
+  .cheers{display:flex;flex-direction:column;gap:10px}
+  .cheer-presets{display:flex;flex-wrap:wrap;gap:8px}
+  .cheer-btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);
+    padding:9px 12px;border-radius:99px;font-size:13px;cursor:pointer}
+  .cheer-btn:hover{border-color:var(--primary)}
+  .cheer-feed{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+  .cheer-item{display:flex;gap:9px;font-size:13px;background:var(--surface);border:1px solid var(--line);
+    border-radius:12px;padding:9px 12px;align-items:center}
+  .cheer-item .who{font-weight:700}
+  .cheer-item .when{margin-left:auto;color:var(--ink-soft);font-size:11px;white-space:nowrap}
+  .empty-note{font-size:13px;color:var(--ink-soft);padding:10px 2px}
+
+  .danger-zone{margin-top:36px;border-top:1px dashed var(--line);padding-top:16px}
+  .relapse-link{background:none;border:none;color:var(--ink-soft);font-size:12px;text-decoration:underline;
+    cursor:pointer;padding:4px 0}
+  .confirm-box{margin-top:10px;background:var(--surface);border:1px solid var(--line);border-radius:14px;
+    padding:14px;display:flex;flex-direction:column;gap:10px}
+  .confirm-box p{font-size:13px;margin:0;color:var(--ink-soft)}
+  .row{display:flex;gap:8px}
+  .btn{border:none;border-radius:99px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer}
+  .btn.primary{background:var(--primary);color:var(--primary-ink)}
+  .btn.ghost{background:var(--surface-2);color:var(--ink)}
+  .btn.warn{background:var(--accent);color:#fff}
+
+  .onboard{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px;
+    box-shadow:var(--shadow)}
+  .onboard h2{font-size:22px;margin-bottom:6px}
+  .onboard p.sub{color:var(--ink-soft);font-size:13.5px;margin:0 0 18px}
+  .claim-list{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+  .claim-card{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:14px;
+    padding:12px 14px;cursor:pointer;background:var(--surface-2);text-align:left;width:100%}
+  .claim-card .emoji{font-size:20px}
+  .claim-card .meta{font-size:12px;color:var(--ink-soft);display:block}
+  .claim-card strong{display:block;font-size:14px}
+  .divider-or{display:flex;align-items:center;gap:10px;color:var(--ink-soft);font-size:11px;
+    text-transform:uppercase;letter-spacing:.08em;margin:14px 0}
+  .divider-or::before,.divider-or::after{content:"";flex:1;height:1px;background:var(--line)}
+  form.setup{display:flex;flex-direction:column;gap:12px}
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--ink-soft);margin-bottom:5px}
+  .field input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);
+    background:var(--bg);color:var(--ink);font-size:14px;font-family:inherit}
+  .emoji-pick{display:flex;gap:6px;flex-wrap:wrap}
+  .emoji-pick button{font-size:20px;padding:6px 9px;border-radius:10px;border:1px solid var(--line);
+    background:var(--bg);cursor:pointer}
+  .emoji-pick button.sel{border-color:var(--primary);background:color-mix(in srgb, var(--primary) 14%, transparent)}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .saving-note{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);
+    background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:99px;font-size:12px;
+    box-shadow:var(--shadow); z-index:20;}
+  footer.credit{text-align:center;font-size:11px;color:var(--ink-soft);margin-top:30px}
+  .setup-config{max-width:640px;margin:60px auto;padding:24px;background:var(--surface);
+    border:1px solid var(--line);border-radius:16px;font-size:14px;line-height:1.6}
+  .setup-config code{background:var(--surface-2);padding:2px 6px;border-radius:6px;font-size:13px}
+  .setup-config pre{background:var(--surface-2);padding:14px;border-radius:10px;overflow-x:auto;font-size:12.5px}
+</style>
+</head>
+<body>
+
+<div id="app"><div class="wrap" style="padding-top:60px;color:var(--ink-soft);font-size:13px;">Se încarcă…</div></div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+  import {
+    getFirestore, doc, onSnapshot, setDoc
+  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+  // ---- Fill this in with your own Firebase project config (Project settings > General > Your apps). ----
+  const firebaseConfig = {
+    apiKey: "PASTE_API_KEY_HERE",
+    authDomain: "PASTE_PROJECT.firebaseapp.com",
+    projectId: "PASTE_PROJECT_ID",
+    storageBucket: "PASTE_PROJECT.appspot.com",
+    messagingSenderId: "PASTE_SENDER_ID",
+    appId: "PASTE_APP_ID"
+  };
+
+  var EMOJIS = ["🌿","🔥","💪","☀️","🌊","🍃","🦋","⭐"];
+  var PRESET_CHEERS = [
+    {e:"💪", t:"Esti pe val, nu renunta!"},
+    {e:"🌿", t:"Mandru/a de tine azi."},
+    {e:"🔥", t:"Hai ca poti, inca o zi!"},
+    {e:"🫶", t:"Sunt aici cu tine."},
+    {e:"🎉", t:"Felicitari pentru inca o zi curata!"},
+    {e:"☀️", t:"O sa fie o zi buna."}
+  ];
+  var MILESTONES = [
+    {ms:20*60*1000, label:"20 de minute", fact:"Pulsul si tensiunea incep sa revina spre normal."},
+    {ms:12*60*60*1000, label:"12 ore", fact:"Nivelul de monoxid de carbon din sange scade la normal."},
+    {ms:24*60*60*1000, label:"1 zi", fact:"Riscul de infarct incepe sa scada."},
+    {ms:3*24*60*60*1000, label:"3 zile", fact:"Nicotina a iesit din organism; gustul si mirosul incep sa revina."},
+    {ms:7*24*60*60*1000, label:"1 saptamana", fact:"Cel mai greu prag e trecut - obiceiul zilnic incepe sa se rupa."},
+    {ms:14*24*60*60*1000, label:"2 saptamani", fact:"Circulatia sangelui si functia pulmonara incep sa se imbunatateasca."},
+    {ms:30*24*60*60*1000, label:"1 luna", fact:"Tusea si respiratia scurta scad simtitor."},
+    {ms:90*24*60*60*1000, label:"3 luni", fact:"Energia zilnica creste vizibil."},
+    {ms:182*24*60*60*1000, label:"6 luni", fact:"Jumatate de an fara tigari - un obicei nou, solid."},
+    {ms:365*24*60*60*1000, label:"1 an", fact:"Riscul de boala cardiaca e aproape injumatatit fata de un fumator activ."}
+  ];
+
+  var state = {people:{}, relapses:[], cheers:[]};
+  var myId = null;
+  try { myId = localStorage.getItem("aerCuratMyId"); } catch(e){}
+  var pendingEmoji = EMOJIS[0];
+  var offline = false;
+
+  function uid(prefix){ return prefix + Math.random().toString(36).slice(2,9); }
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+  }); }
+  function fmtDate(iso){
+    try{ return new Date(iso).toLocaleDateString("ro-RO",{day:"numeric",month:"short",year:"numeric"}); }
+    catch(e){ return iso; }
+  }
+  function elapsedMs(iso){ return Math.max(0, Date.now() - new Date(iso).getTime()); }
+  function elapsedParts(ms){
+    var d = Math.floor(ms/86400000);
+    var h = Math.floor((ms%86400000)/3600000);
+    return {days:d, hours:h};
+  }
+  function relTime(iso){
+    var ms = Date.now() - new Date(iso).getTime();
+    var m = Math.floor(ms/60000);
+    if(m < 1) return "acum";
+    if(m < 60) return m+"m";
+    var h = Math.floor(m/60);
+    if(h < 24) return h+"h";
+    return Math.floor(h/24)+"z";
+  }
+  function fmtNumber(n){ return Math.round(n).toLocaleString("ro-RO"); }
+  function personListFrom(s){
+    return Object.values(s.people).sort(function(a,b){ return a.createdAt-b.createdAt; });
+  }
+  function bestStreakDays(personId){
+    var best = 0;
+    state.relapses.forEach(function(r){ if(r.personId===personId && r.streakDays>best) best = r.streakDays; });
+    var p = state.people[personId];
+    if(p){
+      var cur = elapsedParts(elapsedMs(p.quitDate)).days;
+      if(cur > best) best = cur;
+    }
+    return best;
+  }
+  function otherPeople(){
+    return personListFrom(state).filter(function(p){ return p.id !== myId; });
+  }
+
+  // ---------- persistence (Firestore) ----------
+  var db = null, stateRef = null, configured = firebaseConfig.apiKey !== "PASTE_API_KEY_HERE";
+
+  if(configured){
+    try{
+      var fbApp = initializeApp(firebaseConfig);
+      db = getFirestore(fbApp);
+      stateRef = doc(db, "app", "state");
+      onSnapshot(stateRef, function(snap){
+        if(snap.exists()){
+          var data = snap.data();
+          state = {
+            people: data.people || {},
+            relapses: data.relapses || [],
+            cheers: data.cheers || []
+          };
+        }
+        offline = false;
+        render();
+      }, function(err){
+        offline = true;
+        render();
+      });
+    }catch(e){
+      configured = false;
+    }
+  }
+
+  function showSaving(on){
+    var el = document.getElementById("saving-note");
+    if(on){
+      if(!el){
+        el = document.createElement("div");
+        el.id = "saving-note";
+        el.className = "saving-note";
+        el.textContent = "Se salveaza…";
+        document.body.appendChild(el);
+      }
+    } else if(el){ el.remove(); }
+  }
+
+  async function saveState(nextState){
+    state = nextState;
+    render();
+    if(!configured || !stateRef) return;
+    showSaving(true);
+    try{
+      await setDoc(stateRef, nextState);
+    }catch(e){
+      offline = true;
+    }
+    showSaving(false);
+    render();
+  }
+
+  // ---------- render ----------
+  function render(){
+    var app = document.getElementById("app");
+    if(!configured){
+      app.innerHTML = renderSetupNeeded();
+      return;
+    }
+    app.innerHTML = renderApp(state);
+    wireEvents();
+  }
+
+  function renderSetupNeeded(){
+    return '<div class="setup-config"><h2>Mai e un pas</h2>' +
+      '<p>Fisierul are nevoie de configurarea proiectului tau Firebase ca sa poata salva datele impartasit intre voi doi.</p>' +
+      '<p>Deschide fisierul <code>index.html</code>, gaseste blocul <code>firebaseConfig</code> si inlocuieste valorile cu cele din Firebase Console &rarr; Project settings &rarr; Your apps.</p>' +
+      '<pre>const firebaseConfig = {\n  apiKey: "...",\n  authDomain: "...",\n  projectId: "...",\n  storageBucket: "...",\n  messagingSenderId: "...",\n  appId: "..."\n};</pre>' +
+      '</div>';
+  }
+
+  function renderApp(s){
+    var people = personListFrom(s);
+    var me = myId ? s.people[myId] : null;
+
+    var html = "";
+    html += renderHeader(me);
+    if(offline){
+      html += '<div class="status-banner warn">Nu ne conectam la baza de date acum — ce faci se salveaza local si o sa se sincronizeze cand revine conexiunea.</div>';
+    }
+    html += '<div class="wrap">';
+    if(!me){
+      html += renderOnboarding(people);
+    } else {
+      html += renderDashboard(s, me, people);
+    }
+    html += '<footer class="credit">Aer Curat &middot; facut ca sa nu numarati zilele singuri</footer>';
+    html += '</div>';
+    return html;
+  }
+
+  function renderHeader(me){
+    var html = '<header class="top"><div class="top-inner">';
+    html += '<div class="brand"><span class="dot"></span> Aer Curat</div>';
+    if(me){
+      html += '<div class="whoami">' + me.emoji + ' ' + esc(me.name) + ' <button id="switch-btn">schimba</button></div>';
+    }
+    html += '</div></header>';
+    return html;
+  }
+
+  function renderOnboarding(people){
+    var html = '<div class="onboard">';
+    html += '<h2>Cine esti?</h2>';
+    html += '<p class="sub">Alege-te din lista, sau adauga-te daca esti primul.</p>';
+    if(people.length){
+      html += '<div class="claim-list">';
+      people.forEach(function(p){
+        html += '<button type="button" class="claim-card" data-claim="'+p.id+'">' +
+          '<span class="emoji">'+p.emoji+'</span>' +
+          '<span><strong>'+esc(p.name)+'</strong><span class="meta">fara fum din '+fmtDate(p.quitDate)+'</span></span>' +
+          '</button>';
+      });
+      html += '</div>';
+      html += '<div class="divider-or">sau</div>';
+    }
+    html += renderSetupForm(people.length === 0);
+    html += '</div>';
+    return html;
+  }
+
+  function renderSetupForm(first){
+    var nowLocal = new Date(Date.now() - new Date().getTimezoneOffset()*60000).toISOString().slice(0,16);
+    var html = '<form class="setup" id="setup-form">';
+    html += '<div class="field"><label>Numele tau</label><input required id="f-name" placeholder="ex: Ana"></div>';
+    html += '<div class="field"><label>Alege un semn</label><div class="emoji-pick" id="emoji-pick">';
+    EMOJIS.forEach(function(em,i){
+      html += '<button type="button" data-emoji="'+em+'" class="'+(i===0?'sel':'')+'">'+em+'</button>';
+    });
+    html += '</div></div>';
+    html += '<div class="field"><label>De cand esti fara fum</label><input type="datetime-local" id="f-quitdate" value="'+nowLocal+'"></div>';
+    html += '<div class="two-col">';
+    html += '<div class="field"><label>Tigari / zi (inainte)</label><input type="number" min="0" step="1" id="f-cigsday" value="15"></div>';
+    html += '<div class="field"><label>Tigari / pachet</label><input type="number" min="1" step="1" id="f-cigspack" value="20"></div>';
+    html += '</div>';
+    html += '<div class="field"><label>Pret pachet (lei)</label><input type="number" min="0" step="0.5" id="f-cost" value="30"></div>';
+    html += '<button type="submit" class="btn primary">'+(first ? "Incepe" : "Adauga-ma")+'</button>';
+    html += '</form>';
+    return html;
+  }
+
+  function renderDashboard(s, me, people){
+    var html = "";
+
+    html += '<section><p class="eyebrow">Progres</p><div class="duo">';
+    people.forEach(function(p){
+      html += renderStreakCard(p, p.id === me.id);
+    });
+    html += '</div>';
+
+    if(people.length > 1){
+      var total = 0, minStreak = Infinity;
+      people.forEach(function(p){
+        var d = elapsedParts(elapsedMs(p.quitDate)).days;
+        total += d;
+        if(d < minStreak) minStreak = d;
+      });
+      html += '<div class="combo">';
+      html += '<div class="tile"><div class="num v">'+total+'</div><div class="l">zile combinate, toata echipa</div></div>';
+      html += '<div class="tile"><div class="num v">'+minStreak+'</div><div class="l">zile in care ati fost amandoi curati</div></div>';
+      html += '</div>';
+    }
+    html += '</section>';
+
+    html += '<section><p class="eyebrow">Ce ati economisit</p><div class="stats-grid">';
+    people.forEach(function(p){
+      var days = elapsedMs(p.quitDate)/86400000;
+      var cigs = days * (p.cigsPerDay||0);
+      var money = p.cigsPerPack ? (cigs/p.cigsPerPack)*(p.costPerPack||0) : 0;
+      html += '<div class="stat-tile"><div class="num v">'+fmtNumber(cigs)+'</div><div class="l">tigari neaprinse &middot; '+p.emoji+' '+esc(p.name)+'</div></div>';
+      html += '<div class="stat-tile"><div class="num v">'+fmtNumber(money)+' lei</div><div class="l">economisiti &middot; '+p.emoji+' '+esc(p.name)+'</div></div>';
+    });
+    html += '</div></section>';
+
+    html += '<section><p class="eyebrow">Reperele tale</p><div class="milestones">';
+    var elapsed = elapsedMs(me.quitDate);
+    MILESTONES.forEach(function(m){
+      var done = elapsed >= m.ms;
+      html += '<div class="m-row '+(done?'done':'')+'">';
+      html += '<div class="m-mark">'+(done?'✓':'')+'</div>';
+      html += '<div><div class="m-label">'+m.label+'</div><div class="m-fact">'+m.fact+'</div>';
+      if(!done){
+        var rem = elapsedParts(m.ms - elapsed);
+        html += '<div class="m-eta">mai sunt '+rem.days+'z '+rem.hours+'h</div>';
+      }
+      html += '</div></div>';
+    });
+    html += '</div></section>';
+
+    if(people.length > 1){
+      var target = otherPeople()[0];
+      html += '<section><p class="eyebrow">Trimite incurajare';
+      if(target) html += ' catre ' + target.emoji + ' ' + esc(target.name);
+      html += '</p><div class="cheers">';
+      html += '<div class="cheer-presets">';
+      PRESET_CHEERS.forEach(function(c,i){
+        html += '<button type="button" class="cheer-btn" data-cheer="'+i+'">'+c.e+' '+esc(c.t)+'</button>';
+      });
+      html += '</div>';
+      var feed = s.cheers.slice(-5).reverse();
+      html += '<div class="cheer-feed">';
+      if(feed.length === 0){
+        html += '<div class="empty-note">Nicio incurajare trimisa inca — fii primul.</div>';
+      } else {
+        feed.forEach(function(c){
+          var fromP = s.people[c.from];
+          html += '<div class="cheer-item"><span class="who">'+(fromP?fromP.emoji:'')+' '+esc(fromP?fromP.name:'?')+'</span>' +
+            '<span>'+esc(c.msg)+'</span><span class="when">'+relTime(c.at)+'</span></div>';
+        });
+      }
+      html += '</div></div></section>';
+    }
+
+    html += '<section><div class="empty-note">Recordul tau personal: <strong>'+bestStreakDays(me.id)+' zile</strong></div></section>';
+
+    html += '<div class="danger-zone" id="danger-zone">';
+    html += '<button type="button" class="relapse-link" id="relapse-open">Am recazut</button>';
+    html += '<div id="relapse-confirm" hidden class="confirm-box">' +
+      '<p>Se reseteaza contorul tau la zero, iar seria curenta de '+elapsedParts(elapsed).days+' zile ramane in istoricul tau.</p>' +
+      '<div class="row"><button type="button" class="btn warn" id="relapse-confirm-btn">Da, reseteaza</button>' +
+      '<button type="button" class="btn ghost" id="relapse-cancel-btn">Renunta</button></div></div>';
+    html += '</div>';
+
+    return html;
+  }
+
+  function renderStreakCard(p, isMe){
+    var parts = elapsedParts(elapsedMs(p.quitDate));
+    var html = '<div class="streak-card '+(isMe?'me':'')+'">';
+    html += '<div class="who"><span class="emoji">'+p.emoji+'</span> '+esc(p.name);
+    if(isMe) html += ' <span class="badge-me">tu</span>';
+    html += '</div>';
+    html += '<div class="streaknum num">'+parts.days+'<small>zile</small></div>';
+    html += '<div class="since">de cand: '+fmtDate(p.quitDate)+' &middot; '+parts.hours+'h in plus</div>';
+    var best = bestStreakDays(p.id);
+    if(best > parts.days) html += '<div class="best">🏆 record: '+best+' zile</div>';
+    html += '</div>';
+    return html;
+  }
+
+  // ---------- events ----------
+  function wireEvents(){
+    var switchBtn = document.getElementById("switch-btn");
+    if(switchBtn) switchBtn.addEventListener("click", function(){
+      try{ localStorage.removeItem("aerCuratMyId"); }catch(e){}
+      myId = null; render();
+    });
+
+    document.querySelectorAll("[data-claim]").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        myId = btn.getAttribute("data-claim");
+        try{ localStorage.setItem("aerCuratMyId", myId); }catch(e){}
+        render();
+      });
+    });
+
+    var emojiPick = document.getElementById("emoji-pick");
+    if(emojiPick){
+      emojiPick.querySelectorAll("button").forEach(function(b){
+        b.addEventListener("click", function(){
+          emojiPick.querySelectorAll("button").forEach(function(x){ x.classList.remove("sel"); });
+          b.classList.add("sel");
+          pendingEmoji = b.getAttribute("data-emoji");
+        });
+      });
+    }
+
+    var setupForm = document.getElementById("setup-form");
+    if(setupForm){
+      setupForm.addEventListener("submit", function(ev){
+        ev.preventDefault();
+        var name = document.getElementById("f-name").value.trim();
+        if(!name) return;
+        var quitLocal = document.getElementById("f-quitdate").value;
+        var quitIso = quitLocal ? new Date(quitLocal).toISOString() : new Date().toISOString();
+        var id = uid("p_");
+        var person = {
+          id: id, name: name, emoji: pendingEmoji,
+          quitDate: quitIso,
+          cigsPerDay: parseFloat(document.getElementById("f-cigsday").value) || 0,
+          cigsPerPack: parseFloat(document.getElementById("f-cigspack").value) || 20,
+          costPerPack: parseFloat(document.getElementById("f-cost").value) || 0,
+          createdAt: Date.now()
+        };
+        var next = JSON.parse(JSON.stringify(state));
+        next.people[id] = person;
+        myId = id;
+        try{ localStorage.setItem("aerCuratMyId", id); }catch(e){}
+        saveState(next);
+      });
+    }
+
+    var relapseOpen = document.getElementById("relapse-open");
+    if(relapseOpen) relapseOpen.addEventListener("click", function(){
+      document.getElementById("relapse-confirm").hidden = false;
+      relapseOpen.hidden = true;
+    });
+    var relapseCancel = document.getElementById("relapse-cancel-btn");
+    if(relapseCancel) relapseCancel.addEventListener("click", function(){
+      document.getElementById("relapse-confirm").hidden = true;
+      document.getElementById("relapse-open").hidden = false;
+    });
+    var relapseConfirm = document.getElementById("relapse-confirm-btn");
+    if(relapseConfirm) relapseConfirm.addEventListener("click", function(){
+      var me = state.people[myId];
+      if(!me) return;
+      var days = elapsedParts(elapsedMs(me.quitDate)).days;
+      var next = JSON.parse(JSON.stringify(state));
+      next.relapses.push({personId: myId, streakDays: days, endedAt: new Date().toISOString()});
+      next.people[myId].quitDate = new Date().toISOString();
+      saveState(next);
+    });
+
+    document.querySelectorAll("[data-cheer]").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var idx = parseInt(btn.getAttribute("data-cheer"), 10);
+        var preset = PRESET_CHEERS[idx];
+        var target = otherPeople()[0];
+        if(!target) return;
+        var next = JSON.parse(JSON.stringify(state));
+        next.cheers.push({id: uid("c_"), from: myId, to: target.id, msg: preset.t, at: new Date().toISOString()});
+        if(next.cheers.length > 40) next.cheers = next.cheers.slice(-40);
+        saveState(next);
+      });
+    });
+  }
+
+  render();
+  setInterval(function(){ if(myId) render(); }, 60000);
+</script>
+</body>
+</html>
